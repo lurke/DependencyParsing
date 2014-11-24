@@ -1,0 +1,37 @@
+1	Eugene	_	NNP	_	_	3	NAME	_	_
+2	A.	_	NNP	_	_	3	NAME	_	_
+3	Miller	_	NNP	_	_	9	SBJ	_	_
+4	,	_	,	_	_	3	P	_	_
+5	52	_	CD	_	_	6	NMOD	_	_
+6	years	_	NNS	_	_	7	AMOD	_	_
+7	old	_	JJ	_	_	3	APPO	_	_
+8	,	_	,	_	_	3	P	_	_
+9	was	_	VBD	_	_	0	ROOT	_	_
+10	elected	_	VBN	_	_	9	VC	_	_
+11	a	_	DT	_	_	12	NMOD	_	_
+12	director	_	NN	_	_	10	OPRD	_	_
+13	of	_	IN	_	_	12	NMOD	_	_
+14	this	_	DT	_	_	17	NMOD	_	_
+15	electric	_	JJ	_	_	17	NMOD	_	_
+16	utility	_	NN	_	_	17	NMOD	_	_
+17	company	_	NN	_	_	13	PMOD	_	_
+18	,	_	,	_	_	10	P	_	_
+19	filling	_	VBG	_	_	10	ADV	_	_
+20	a	_	DT	_	_	21	NMOD	_	_
+21	vacancy	_	NN	_	_	19	OBJ	_	_
+22	.	_	.	_	_	9	P	_	_
+
+1	He	_	PRP	_	_	2	SBJ	_	_
+2	is	_	VBZ	_	_	0	ROOT	_	_
+3	president	_	NN	_	_	2	PRD	_	_
+4	and	_	CC	_	_	3	COORD	_	_
+5	chief	_	NN	_	_	7	NMOD	_	_
+6	executive	_	JJ	_	_	7	NMOD	_	_
+7	officer	_	NN	_	_	4	CONJ	_	_
+8	of	_	IN	_	_	3	NMOD	_	_
+9	Comerica	_	NNP	_	_	8	PMOD	_	_
+10	Inc.	_	NNP	_	_	9	POSTHON	_	_
+11	in	_	IN	_	_	9	LOC	_	_
+12	Detroit	_	NNP	_	_	11	PMOD	_	_
+13	.	_	.	_	_	2	P	_	_
+

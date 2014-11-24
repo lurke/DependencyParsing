@@ -1,0 +1,44 @@
+1	Trinity	_	NNP	_	_	2	NAME	_	_
+2	Industries	_	NNPS	_	_	4	SBJ	_	_
+3	Inc.	_	NNP	_	_	2	POSTHON	_	_
+4	said	_	VBD	_	_	0	ROOT	_	_
+5	it	_	PRP	_	_	6	SBJ	_	_
+6	reached	_	VBD	_	_	4	OBJ	_	_
+7	a	_	DT	_	_	9	NMOD	_	_
+8	preliminary	_	JJ	_	_	9	NMOD	_	_
+9	agreement	_	NN	_	_	6	OBJ	_	_
+10	to	_	TO	_	_	9	NMOD	_	_
+11	sell	_	VB	_	_	10	IM	_	_
+12	500	_	CD	_	_	14	NMOD	_	_
+13	railcar	_	NN	_	_	14	NMOD	_	_
+14	platforms	_	NNS	_	_	11	OBJ	_	_
+15	to	_	TO	_	_	11	DTV	_	_
+16	Trailer	_	NNP	_	_	17	NAME	_	_
+17	Train	_	NNP	_	_	15	PMOD	_	_
+18	Co.	_	NNP	_	_	17	POSTHON	_	_
+19	of	_	IN	_	_	17	NMOD	_	_
+20	Chicago	_	NNP	_	_	19	PMOD	_	_
+21	.	_	.	_	_	4	P	_	_
+
+1	Terms	_	NNS	_	_	2	SBJ	_	_
+2	were	_	VBD	_	_	0	ROOT	_	_
+3	n't	_	RB	_	_	2	ADV	_	_
+4	disclosed	_	VBN	_	_	2	VC	_	_
+5	.	_	.	_	_	2	P	_	_
+
+1	Trinity	_	NNP	_	_	2	SBJ	_	_
+2	said	_	VBD	_	_	0	ROOT	_	_
+3	it	_	PRP	_	_	4	SBJ	_	_
+4	plans	_	VBZ	_	_	2	OBJ	_	_
+5	to	_	TO	_	_	4	OPRD	_	_
+6	begin	_	VB	_	_	5	IM	_	_
+7	delivery	_	NN	_	_	6	OBJ	_	_
+8	in	_	IN	_	_	6	TMP	_	_
+9	the	_	DT	_	_	11	NMOD	_	_
+10	first	_	JJ	_	_	11	NMOD	_	_
+11	quarter	_	NN	_	_	8	PMOD	_	_
+12	of	_	IN	_	_	11	NMOD	_	_
+13	next	_	JJ	_	_	14	NMOD	_	_
+14	year	_	NN	_	_	12	PMOD	_	_
+15	.	_	.	_	_	2	P	_	_
+

@@ -1,0 +1,110 @@
+1	Well-Seasoned	_	JJ	_	_	2	NMOD	_	_
+2	Reasoning	_	NN	_	_	0	ROOT	_	_
+
+1	(	_	(	_	_	5	P	_	_
+2	``	_	``	_	_	5	P	_	_
+3	Food	_	NN	_	_	4	NMOD	_	_
+4	manufacturer	_	NN	_	_	5	SBJ	_	_
+5	changes	_	VBZ	_	_	0	ROOT	_	_
+6	spelling	_	NN	_	_	5	OBJ	_	_
+7	of	_	IN	_	_	6	NMOD	_	_
+8	`	_	``	_	_	7	P	_	_
+9	catsup	_	NN	_	_	7	PMOD	_	_
+10	'	_	''	_	_	7	P	_	_
+11	to	_	TO	_	_	5	ADV	_	_
+12	`	_	``	_	_	11	P	_	_
+13	ketchup	_	NN	_	_	11	PMOD	_	_
+14	,	_	,	_	_	5	P	_	_
+15	'	_	''	_	_	5	P	_	_
+16	saying	_	VBG	_	_	5	ADV	_	_
+17	that	_	DT	_	_	18	SBJ	_	_
+18	's	_	VBZ	_	_	16	OBJ	_	_
+19	the	_	DT	_	_	20	NMOD	_	_
+20	spelling	_	NN	_	_	18	PRD	_	_
+21	people	_	NNS	_	_	23	SBJ	_	_
+22	now	_	RB	_	_	23	TMP	_	_
+23	prefer	_	VBP	_	_	20	NMOD	_	_
+24	.	_	.	_	_	5	P	_	_
+25	''	_	''	_	_	5	P	_	_
+
+1	--	_	:	_	_	4	P	_	_
+2	WSJ	_	NNP	_	_	4	NAME	_	_
+3	Business	_	NNP	_	_	4	NAME	_	_
+4	Bulletin	_	NNP	_	_	0	ROOT	_	_
+5	)	_	)	_	_	4	P	_	_
+
+1	Public	_	JJ	_	_	2	NMOD	_	_
+2	preference	_	NN	_	_	3	SBJ	_	_
+3	is	_	VBZ	_	_	0	ROOT	_	_
+4	important	_	JJ	_	_	3	PRD	_	_
+5	,	_	,	_	_	3	P	_	_
+6	So	_	IN	_	_	3	COORD	_	_
+7	product	_	NN	_	_	8	NMOD	_	_
+8	names	_	NNS	_	_	9	SBJ	_	_
+9	should	_	MD	_	_	6	COORD	_	_
+10	match	_	VB	_	_	9	VC	_	_
+11	up	_	IN	_	_	10	PRT	_	_
+12	,	_	,	_	_	9	P	_	_
+13	And	_	CC	_	_	9	COORD	_	_
+14	firms	_	NNS	_	_	21	SBJ	_	_
+15	that	_	WDT	_	_	16	SBJ	_	_
+16	find	_	VBP	_	_	14	NMOD	_	_
+17	they	_	PRP	_	_	18	SBJ	_	_
+18	're	_	VBP	_	_	16	OBJ	_	_
+19	lagging	_	VBG	_	_	18	VC	_	_
+20	behind	_	IN	_	_	19	LOC	_	_
+21	Should	_	MD	_	_	13	CONJ	_	_
+22	now	_	RB	_	_	21	TMP	_	_
+23	take	_	VB	_	_	21	VC	_	_
+24	steps	_	NNS	_	_	23	OBJ	_	_
+25	to	_	TO	_	_	24	NMOD	_	_
+26	ketchup	_	VB	_	_	25	IM	_	_
+27	!	_	.	_	_	3	P	_	_
+
+1	--	_	:	_	_	4	P	_	_
+2	George	_	NNP	_	_	4	NAME	_	_
+3	O.	_	NNP	_	_	4	NAME	_	_
+4	Ludcke	_	NNP	_	_	0	ROOT	_	_
+5	.	_	.	_	_	4	P	_	_
+
+1	Judge	_	VB	_	_	0	ROOT	_	_
+2	Not	_	RB	_	_	1	ADV	_	_
+
+1	How	_	WRB	_	_	2	AMOD	_	_
+2	easy	_	JJ	_	_	4	PRD	_	_
+3	it	_	PRP	_	_	4	SBJ	_	_
+4	is	_	VBZ	_	_	0	ROOT	_	_
+5	To	_	TO	_	_	4	EXTR	_	_
+6	attack	_	VB	_	_	5	IM	_	_
+7	others	_	NNS	_	_	9	NMOD	_	_
+8	'	_	POS	_	_	7	SUFFIX	_	_
+9	views	_	NNS	_	_	6	OBJ	_	_
+10	Without	_	IN	_	_	6	MNR	_	_
+11	ever	_	RB	_	_	12	ADV	_	_
+12	setting	_	VBG	_	_	10	PMOD	_	_
+13	A	_	DT	_	_	14	NMOD	_	_
+14	foot	_	NN	_	_	12	OBJ	_	_
+15	in	_	IN	_	_	12	ADV	_	_
+16	their	_	PRP$	_	_	17	NMOD	_	_
+17	shoes	_	NNS	_	_	15	PMOD	_	_
+18	!	_	.	_	_	4	P	_	_
+
+1	--	_	:	_	_	4	P	_	_
+2	G.	_	NNP	_	_	4	NAME	_	_
+3	Sterling	_	NNP	_	_	4	NAME	_	_
+4	Leiby	_	NNP	_	_	0	ROOT	_	_
+5	.	_	.	_	_	4	P	_	_
+
+1	Daffynition	_	NN	_	_	0	ROOT	_	_
+
+1	Money-making	_	JJ	_	_	2	NMOD	_	_
+2	course	_	NN	_	_	0	ROOT	_	_
+3	:	_	:	_	_	2	P	_	_
+4	wad-working	_	NN	_	_	2	APPO	_	_
+5	.	_	.	_	_	2	P	_	_
+
+1	--	_	:	_	_	3	P	_	_
+2	Thomas	_	NNP	_	_	3	NAME	_	_
+3	Henry	_	NNP	_	_	0	ROOT	_	_
+4	.	_	.	_	_	3	P	_	_
+

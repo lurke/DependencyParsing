@@ -1,0 +1,33 @@
+1	Chamberlain	_	NNP	_	_	2	NAME	_	_
+2	Manufacturing	_	NNP	_	_	4	SBJ	_	_
+3	Corp.	_	NNP	_	_	2	POSTHON	_	_
+4	won	_	VBD	_	_	0	ROOT	_	_
+5	a	_	DT	_	_	10	NMOD	_	_
+6	$	_	$	_	_	10	NMOD	_	_
+7	25.8	_	CD	_	_	6	DEP	_	_
+8	million	_	CD	_	_	6	DEP	_	_
+9	Army	_	NNP	_	_	10	NMOD	_	_
+10	contract	_	NN	_	_	4	OBJ	_	_
+11	for	_	IN	_	_	10	NMOD	_	_
+12	155mm	_	CD	_	_	15	NMOD	_	_
+13	artillery	_	NN	_	_	15	NMOD	_	_
+14	shell	_	NN	_	_	15	NMOD	_	_
+15	casings	_	NNS	_	_	11	PMOD	_	_
+16	.	_	.	_	_	4	P	_	_
+
+1	Avondale	_	NNP	_	_	2	NAME	_	_
+2	Industries	_	NNPS	_	_	4	SBJ	_	_
+3	Inc.	_	NNP	_	_	2	POSTHON	_	_
+4	received	_	VBD	_	_	0	ROOT	_	_
+5	a	_	DT	_	_	10	NMOD	_	_
+6	$	_	$	_	_	10	NMOD	_	_
+7	13.5	_	CD	_	_	6	DEP	_	_
+8	million	_	CD	_	_	6	DEP	_	_
+9	Navy	_	NNP	_	_	10	NMOD	_	_
+10	contract	_	NN	_	_	4	OBJ	_	_
+11	for	_	IN	_	_	10	NMOD	_	_
+12	ship	_	NN	_	_	14	NMOD	_	_
+13	spare	_	JJ	_	_	14	NMOD	_	_
+14	parts	_	NNS	_	_	11	PMOD	_	_
+15	.	_	.	_	_	4	P	_	_
+

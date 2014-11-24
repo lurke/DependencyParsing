@@ -1,0 +1,83 @@
+1	Skoal	_	NNP	_	_	2	NAME	_	_
+2	Daze	_	NNP	_	_	0	ROOT	_	_
+
+1	I	_	PRP	_	_	2	SBJ	_	_
+2	've	_	VBP	_	_	0	ROOT	_	_
+3	learned	_	VBN	_	_	2	VC	_	_
+4	the	_	DT	_	_	6	NMOD	_	_
+5	hard	_	JJ	_	_	6	NMOD	_	_
+6	way	_	NN	_	_	3	MNR	_	_
+7	that	_	IN	_	_	3	OBJ	_	_
+8	too	_	RB	_	_	9	AMOD	_	_
+9	much	_	JJ	_	_	10	NMOD	_	_
+10	booze	_	NN	_	_	11	SBJ	_	_
+11	Takes	_	VBZ	_	_	7	SUB	_	_
+12	revenge	_	NN	_	_	11	OBJ	_	_
+13	the	_	DT	_	_	15	NMOD	_	_
+14	next	_	JJ	_	_	15	NMOD	_	_
+15	day	_	NN	_	_	11	TMP	_	_
+16	about	_	IN	_	_	11	TMP	_	_
+17	nine	_	CD	_	_	16	PMOD	_	_
+18	;	_	:	_	_	3	P	_	_
+19	No	_	DT	_	_	20	NMOD	_	_
+20	wonder	_	NN	_	_	3	DEP	_	_
+21	I	_	PRP	_	_	22	SBJ	_	_
+22	say	_	VBP	_	_	20	NMOD	_	_
+23	,	_	,	_	_	22	P	_	_
+24	``	_	``	_	_	22	P	_	_
+25	I	_	PRP	_	_	26	SBJ	_	_
+26	drink	_	VBP	_	_	22	OBJ	_	_
+27	to	_	TO	_	_	26	ADV	_	_
+28	your	_	PRP$	_	_	29	NMOD	_	_
+29	health	_	NN	_	_	27	PMOD	_	_
+30	''	_	''	_	_	22	P	_	_
+31	--	_	:	_	_	20	P	_	_
+32	It	_	PRP	_	_	20	SBJ	_	_
+33	certainly	_	RB	_	_	20	ADV	_	_
+34	is	_	VBZ	_	_	20	DEP	_	_
+35	n't	_	RB	_	_	34	ADV	_	_
+36	to	_	TO	_	_	34	PRD	_	_
+37	mine	_	PRP	_	_	36	PMOD	_	_
+38	!	_	.	_	_	2	P	_	_
+
+1	--	_	:	_	_	4	P	_	_
+2	George	_	NNP	_	_	4	NAME	_	_
+3	O.	_	NNP	_	_	4	NAME	_	_
+4	Ludcke	_	NNP	_	_	0	ROOT	_	_
+5	.	_	.	_	_	4	P	_	_
+
+1	Spaced	_	NNP	_	_	2	AMOD	_	_
+2	Out	_	NNP	_	_	0	ROOT	_	_
+
+1	Those	_	DT	_	_	3	NMOD	_	_
+2	supermarket	_	NN	_	_	3	NMOD	_	_
+3	tabloids	_	NNS	_	_	4	SBJ	_	_
+4	Make	_	VBP	_	_	0	ROOT	_	_
+5	me	_	PRP	_	_	4	OBJ	_	_
+6	feel	_	VB	_	_	4	OPRD	_	_
+7	slow	_	JJ	_	_	6	PRD	_	_
+8	Because	_	IN	_	_	4	PRP	_	_
+9	I	_	PRP	_	_	11	SBJ	_	_
+10	still	_	RB	_	_	11	ADV	_	_
+11	have	_	VBP	_	_	8	SUB	_	_
+12	n't	_	RB	_	_	11	ADV	_	_
+13	seen	_	VBN	_	_	11	VC	_	_
+
+1	--	_	:	_	_	3	P	_	_
+2	Bruce	_	NNP	_	_	3	NAME	_	_
+3	Kafaroff	_	NNP	_	_	0	ROOT	_	_
+4	.	_	.	_	_	3	P	_	_
+
+1	Daffynition	_	NNP	_	_	0	ROOT	_	_
+
+1	Repression	_	NN	_	_	0	ROOT	_	_
+2	:	_	:	_	_	1	P	_	_
+3	emote	_	VB	_	_	4	NMOD	_	_
+4	control	_	NN	_	_	1	APPO	_	_
+5	.	_	.	_	_	1	P	_	_
+
+1	--	_	:	_	_	3	P	_	_
+2	Daisy	_	NNP	_	_	3	NAME	_	_
+3	Brown	_	NNP	_	_	0	ROOT	_	_
+4	.	_	.	_	_	3	P	_	_
+

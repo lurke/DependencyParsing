@@ -1,0 +1,38 @@
+1	Charles	_	NNP	_	_	4	NAME	_	_
+2	D	_	NNP	_	_	4	NAME	_	_
+3	.	_	.	_	_	4	P	_	_
+4	Way	_	NNP	_	_	12	SBJ	_	_
+5	,	_	,	_	_	4	P	_	_
+6	president	_	NN	_	_	4	APPO	_	_
+7	of	_	IN	_	_	6	NMOD	_	_
+8	this	_	DT	_	_	10	NMOD	_	_
+9	restaurant	_	NN	_	_	10	NMOD	_	_
+10	operator	_	NN	_	_	7	PMOD	_	_
+11	,	_	,	_	_	4	P	_	_
+12	assumed	_	VBD	_	_	0	ROOT	_	_
+13	the	_	DT	_	_	15	NMOD	_	_
+14	additional	_	JJ	_	_	15	NMOD	_	_
+15	post	_	NN	_	_	12	OBJ	_	_
+16	of	_	IN	_	_	15	NMOD	_	_
+17	chief	_	NN	_	_	19	NMOD	_	_
+18	executive	_	NN	_	_	19	NMOD	_	_
+19	officer	_	NN	_	_	16	PMOD	_	_
+20	.	_	.	_	_	12	P	_	_
+
+1	He	_	PRP	_	_	2	SBJ	_	_
+2	succeeds	_	VBZ	_	_	0	ROOT	_	_
+3	Alvin	_	NNP	_	_	5	NAME	_	_
+4	A.	_	NNP	_	_	5	NAME	_	_
+5	McCall	_	NNP	_	_	2	OBJ	_	_
+6	in	_	IN	_	_	2	LOC	_	_
+7	the	_	DT	_	_	8	NMOD	_	_
+8	position	_	NN	_	_	6	PMOD	_	_
+9	.	_	.	_	_	2	P	_	_
+
+1	Mr.	_	NNP	_	_	2	TITLE	_	_
+2	McCall	_	NNP	_	_	3	SBJ	_	_
+3	will	_	MD	_	_	0	ROOT	_	_
+4	remain	_	VB	_	_	3	VC	_	_
+5	chairman	_	NN	_	_	4	PRD	_	_
+6	.	_	.	_	_	3	P	_	_
+

@@ -1,0 +1,30 @@
+1	RADIO	_	NN	_	_	0	ROOT	_	_
+2	:	_	:	_	_	1	P	_	_
+
+1	Viacom	_	NNP	_	_	2	NAME	_	_
+2	Broadcasting	_	NNP	_	_	5	SBJ	_	_
+3	Inc.	_	NNP	_	_	2	POSTHON	_	_
+4	definitively	_	RB	_	_	5	ADV	_	_
+5	agreed	_	VBD	_	_	0	ROOT	_	_
+6	to	_	TO	_	_	5	OPRD	_	_
+7	acquire	_	VB	_	_	6	IM	_	_
+8	KOFY	_	NNP	_	_	7	OBJ	_	_
+9	(	_	(	_	_	10	P	_	_
+10	AM	_	VBP	_	_	8	PRN	_	_
+11	)	_	)	_	_	10	P	_	_
+12	and	_	CC	_	_	8	COORD	_	_
+13	KOFY-FM	_	NNP	_	_	12	CONJ	_	_
+14	in	_	IN	_	_	8	LOC	_	_
+15	San	_	NNP	_	_	16	NAME	_	_
+16	Francisco	_	NNP	_	_	14	PMOD	_	_
+17	for	_	IN	_	_	7	ADV	_	_
+18	about	_	RB	_	_	19	DEP	_	_
+19	$	_	$	_	_	17	PMOD	_	_
+20	19.5	_	CD	_	_	19	DEP	_	_
+21	million	_	CD	_	_	19	DEP	_	_
+22	from	_	IN	_	_	7	ADV	_	_
+23	Pacific	_	NNP	_	_	24	NAME	_	_
+24	FM	_	NNP	_	_	22	PMOD	_	_
+25	Inc	_	NNP	_	_	24	POSTHON	_	_
+26	.	_	.	_	_	5	P	_	_
+

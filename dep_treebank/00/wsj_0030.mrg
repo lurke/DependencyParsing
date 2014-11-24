@@ -1,0 +1,26 @@
+1	James	_	NNP	_	_	3	NAME	_	_
+2	L.	_	NNP	_	_	3	NAME	_	_
+3	Pate	_	NNP	_	_	10	SBJ	_	_
+4	,	_	,	_	_	3	P	_	_
+5	54-year-old	_	JJ	_	_	8	NMOD	_	_
+6	executive	_	NN	_	_	8	NMOD	_	_
+7	vice	_	NN	_	_	8	NMOD	_	_
+8	president	_	NN	_	_	3	APPO	_	_
+9	,	_	,	_	_	3	P	_	_
+10	was	_	VBD	_	_	0	ROOT	_	_
+11	named	_	VBN	_	_	10	VC	_	_
+12	a	_	DT	_	_	13	NMOD	_	_
+13	director	_	NN	_	_	11	OPRD	_	_
+14	of	_	IN	_	_	13	NMOD	_	_
+15	this	_	DT	_	_	17	NMOD	_	_
+16	oil	_	NN	_	_	17	NMOD	_	_
+17	concern	_	NN	_	_	14	PMOD	_	_
+18	,	_	,	_	_	11	P	_	_
+19	expanding	_	VBG	_	_	11	ADV	_	_
+20	the	_	DT	_	_	21	NMOD	_	_
+21	board	_	NN	_	_	19	OBJ	_	_
+22	to	_	TO	_	_	19	ADV	_	_
+23	14	_	CD	_	_	24	NMOD	_	_
+24	members	_	NNS	_	_	22	PMOD	_	_
+25	.	_	.	_	_	10	P	_	_
+

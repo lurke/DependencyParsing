@@ -1,0 +1,34 @@
+1	WPP	_	NNP	_	_	2	NAME	_	_
+2	GROUP	_	NNP	_	_	4	NMOD	_	_
+3	'S	_	POS	_	_	2	SUFFIX	_	_
+4	Ogilvy	_	NNP	_	_	7	SBJ	_	_
+5	&	_	CC	_	_	4	COORD	_	_
+6	Mather	_	NNP	_	_	5	CONJ	_	_
+7	expects	_	VBZ	_	_	0	ROOT	_	_
+8	profit	_	NN	_	_	9	NMOD	_	_
+9	margins	_	NNS	_	_	7	OBJ	_	_
+10	to	_	TO	_	_	7	OPRD	_	_
+11	improve	_	VB	_	_	10	IM	_	_
+12	to	_	TO	_	_	11	DIR	_	_
+13	11.5	_	CD	_	_	14	NMOD	_	_
+14	%	_	NN	_	_	12	PMOD	_	_
+15	in	_	IN	_	_	11	TMP	_	_
+16	1990	_	CD	_	_	15	PMOD	_	_
+17	in	_	IN	_	_	11	LOC	_	_
+18	the	_	DT	_	_	19	NMOD	_	_
+19	U.S.	_	NNP	_	_	17	PMOD	_	_
+
+1	Yesterday	_	NN	_	_	3	NMOD	_	_
+2	's	_	POS	_	_	1	SUFFIX	_	_
+3	edition	_	NN	_	_	4	SBJ	_	_
+4	did	_	VBD	_	_	0	ROOT	_	_
+5	n't	_	RB	_	_	4	ADV	_	_
+6	specify	_	VB	_	_	4	VC	_	_
+7	where	_	WRB	_	_	11	LOC	_	_
+8	the	_	DT	_	_	9	NMOD	_	_
+9	improvement	_	NN	_	_	10	SBJ	_	_
+10	would	_	MD	_	_	6	OBJ	_	_
+11	take	_	VB	_	_	10	VC	_	_
+12	place	_	NN	_	_	11	OBJ	_	_
+13	.	_	.	_	_	4	P	_	_
+

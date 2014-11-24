@@ -1,0 +1,34 @@
+1	The	_	DT	_	_	5	NMOD	_	_
+2	New	_	NNP	_	_	5	NAME	_	_
+3	York	_	NNP	_	_	5	NAME	_	_
+4	Stock	_	NNP	_	_	5	NAME	_	_
+5	Exchange	_	NNP	_	_	6	SBJ	_	_
+6	said	_	VBD	_	_	0	ROOT	_	_
+7	a	_	DT	_	_	8	NMOD	_	_
+8	seat	_	NN	_	_	9	SBJ	_	_
+9	was	_	VBD	_	_	6	OBJ	_	_
+10	sold	_	VBN	_	_	9	VC	_	_
+11	for	_	IN	_	_	10	ADV	_	_
+12	$	_	$	_	_	11	PMOD	_	_
+13	500,000	_	CD	_	_	12	NMOD	_	_
+14	,	_	,	_	_	10	P	_	_
+15	unchanged	_	JJ	_	_	10	OPRD	_	_
+16	from	_	IN	_	_	15	AMOD	_	_
+17	the	_	DT	_	_	18	NMOD	_	_
+18	sale	_	NN	_	_	16	PMOD	_	_
+19	Thursday	_	NNP	_	_	18	TMP	_	_
+20	.	_	.	_	_	6	P	_	_
+
+1	Seats	_	NNS	_	_	2	SBJ	_	_
+2	are	_	VBP	_	_	0	ROOT	_	_
+3	quoted	_	VBN	_	_	2	VC	_	_
+4	at	_	IN	_	_	3	ADV	_	_
+5	$	_	$	_	_	4	PMOD	_	_
+6	430,000	_	CD	_	_	5	NMOD	_	_
+7	bid	_	NN	_	_	5	APPO	_	_
+8	and	_	CC	_	_	5	COORD	_	_
+9	$	_	$	_	_	8	CONJ	_	_
+10	525,000	_	CD	_	_	9	NMOD	_	_
+11	asked	_	VBN	_	_	9	APPO	_	_
+12	.	_	.	_	_	2	P	_	_
+

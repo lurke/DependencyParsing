@@ -1,0 +1,73 @@
+1	Wall	_	NNP	_	_	2	NAME	_	_
+2	Street	_	NNP	_	_	0	ROOT	_	_
+
+1	When	_	WRB	_	_	3	TMP	_	_
+2	I	_	PRP	_	_	3	SBJ	_	_
+3	was	_	VBD	_	_	21	TMP	_	_
+4	just	_	RB	_	_	6	NMOD	_	_
+5	a	_	DT	_	_	6	NMOD	_	_
+6	child	_	NN	_	_	3	PRD	_	_
+7	And	_	CC	_	_	6	COORD	_	_
+8	confronted	_	VBN	_	_	7	CONJ	_	_
+9	by	_	IN	_	_	8	LGS	_	_
+10	my	_	PRP$	_	_	11	NMOD	_	_
+11	fears	_	NNS	_	_	9	PMOD	_	_
+12	,	_	,	_	_	21	P	_	_
+13	The	_	DT	_	_	14	NMOD	_	_
+14	things	_	NNS	_	_	21	SBJ	_	_
+15	that	_	IN	_	_	18	SBJ	_	_
+16	I	_	PRP	_	_	17	SBJ	_	_
+17	thought	_	VBD	_	_	14	NMOD	_	_
+18	would	_	MD	_	_	17	OBJ	_	_
+19	get	_	VB	_	_	18	VC	_	_
+20	me	_	PRP	_	_	19	OBJ	_	_
+21	Had	_	VBD	_	_	0	ROOT	_	_
+22	fangs	_	NNS	_	_	21	OBJ	_	_
+23	and	_	CC	_	_	22	COORD	_	_
+24	pointed	_	JJ	_	_	25	NMOD	_	_
+25	ears	_	NNS	_	_	23	CONJ	_	_
+26	.	_	.	_	_	21	P	_	_
+
+1	Nothing	_	NN	_	_	3	SBJ	_	_
+2	much	_	RB	_	_	1	APPO	_	_
+3	has	_	VBZ	_	_	0	ROOT	_	_
+4	changed	_	VBN	_	_	3	VC	_	_
+5	--	_	:	_	_	3	P	_	_
+6	My	_	PRP$	_	_	8	NMOD	_	_
+7	periodic	_	JJ	_	_	8	NMOD	_	_
+8	scares	_	NNS	_	_	9	SBJ	_	_
+9	Are	_	VBP	_	_	3	COORD	_	_
+10	still	_	RB	_	_	9	TMP	_	_
+11	from	_	IN	_	_	9	PRD	_	_
+12	hostile	_	JJ	_	_	13	NMOD	_	_
+13	animals	_	NNS	_	_	11	PMOD	_	_
+14	,	_	,	_	_	9	P	_	_
+15	Only	_	RB	_	_	9	COORD	_	_
+16	now	_	RB	_	_	19	TMP	_	_
+17	,	_	,	_	_	19	P	_	_
+18	they	_	PRP	_	_	19	SBJ	_	_
+19	're	_	VBP	_	_	15	COORD	_	_
+20	bulls	_	NNS	_	_	19	PRD	_	_
+21	and	_	CC	_	_	20	COORD	_	_
+22	bears	_	NNS	_	_	21	CONJ	_	_
+23	.	_	.	_	_	3	P	_	_
+
+1	--	_	:	_	_	3	P	_	_
+2	Pat	_	NNP	_	_	3	NAME	_	_
+3	D'Amico	_	NNP	_	_	0	ROOT	_	_
+4	.	_	.	_	_	3	P	_	_
+
+1	Daffynition	_	NN	_	_	0	ROOT	_	_
+
+1	Trained	_	VBN	_	_	2	NMOD	_	_
+2	dolphins	_	NNS	_	_	0	ROOT	_	_
+3	:	_	:	_	_	2	P	_	_
+4	pur-poises	_	NNS	_	_	2	APPO	_	_
+5	.	_	.	_	_	2	P	_	_
+
+1	--	_	:	_	_	4	P	_	_
+2	Marrill	_	NNP	_	_	4	NAME	_	_
+3	J.	_	NNP	_	_	4	NAME	_	_
+4	Pederson	_	NNP	_	_	0	ROOT	_	_
+5	.	_	.	_	_	4	P	_	_
+

@@ -1,0 +1,35 @@
+1	Annualized	_	VBN	_	_	3	NMOD	_	_
+2	interest	_	NN	_	_	3	NMOD	_	_
+3	rates	_	NNS	_	_	0	ROOT	_	_
+4	on	_	IN	_	_	3	NMOD	_	_
+5	certain	_	JJ	_	_	6	NMOD	_	_
+6	investments	_	NNS	_	_	4	PMOD	_	_
+7	as	_	IN	_	_	3	NMOD	_	_
+8	reported	_	VBN	_	_	7	SUB	_	_
+9	by	_	IN	_	_	8	ADV	_	_
+10	the	_	DT	_	_	13	NMOD	_	_
+11	Federal	_	NNP	_	_	13	NAME	_	_
+12	Reserve	_	NNP	_	_	13	NAME	_	_
+13	Board	_	NNP	_	_	9	PMOD	_	_
+14	on	_	IN	_	_	8	MNR	_	_
+15	a	_	DT	_	_	17	NMOD	_	_
+16	weekly-average	_	JJ	_	_	17	NMOD	_	_
+17	basis	_	NN	_	_	14	PMOD	_	_
+18	:	_	:	_	_	3	P	_	_
+19	1989	_	CD	_	_	3	TMP	_	_
+20	and	_	CC	_	_	19	COORD	_	_
+21	Wednesday	_	NNP	_	_	20	CONJ	_	_
+22	October	_	NNP	_	_	21	APPO	_	_
+23	4	_	CD	_	_	22	NMOD	_	_
+24	,	_	,	_	_	22	P	_	_
+25	1989	_	CD	_	_	22	APPO	_	_
+26	.	_	.	_	_	3	P	_	_
+
+1	c-Yields	_	NNS	_	_	0	ROOT	_	_
+2	,	_	,	_	_	1	P	_	_
+3	adjusted	_	VBN	_	_	1	APPO	_	_
+4	for	_	IN	_	_	3	ADV	_	_
+5	constant	_	JJ	_	_	6	NMOD	_	_
+6	maturity	_	NN	_	_	4	PMOD	_	_
+7	.	_	.	_	_	1	P	_	_
+

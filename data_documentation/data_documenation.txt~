@@ -1,0 +1,27 @@
+The data in the folder data/dep_treebank is structured as follows
+
+column 1:
+index of token in sentence
+
+column 2:
+token
+
+column 3:
+empty
+
+column 4:
+treebank POS tag (see data_documentation/treebank_pos.pdf)
+
+column 5-6:
+empty
+
+column 7:
+index of parent token in sentence. "0" indicates that it is the top node
+
+column 8:
+dependency label (see data_documentation/conll-syntax.pdf table 4.3. However, I am not sure if we need this). 
+
+column 9-10:
+empty
+
+For a documentation of the conversion procedure see data_documentation/conll-syntax.pdf.

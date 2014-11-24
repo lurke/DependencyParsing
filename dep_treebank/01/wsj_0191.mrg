@@ -1,0 +1,26 @@
+1	First	_	NNP	_	_	2	NAME	_	_
+2	Chicago	_	NNP	_	_	4	SBJ	_	_
+3	Corp.	_	NNP	_	_	2	POSTHON	_	_
+4	said	_	VBD	_	_	0	ROOT	_	_
+5	it	_	PRP	_	_	6	SBJ	_	_
+6	completed	_	VBD	_	_	4	OBJ	_	_
+7	its	_	PRP$	_	_	12	NMOD	_	_
+8	$	_	$	_	_	12	NMOD	_	_
+9	55.1	_	CD	_	_	8	DEP	_	_
+10	million	_	CD	_	_	8	DEP	_	_
+11	cash-and-stock	_	JJ	_	_	12	NMOD	_	_
+12	acquisition	_	NN	_	_	6	OBJ	_	_
+13	of	_	IN	_	_	12	NMOD	_	_
+14	closely	_	RB	_	_	15	AMOD	_	_
+15	held	_	VBN	_	_	17	NMOD	_	_
+16	Ravenswood	_	NNP	_	_	17	NAME	_	_
+17	Financial	_	NNP	_	_	13	PMOD	_	_
+18	Corp.	_	NNP	_	_	17	POSTHON	_	_
+19	,	_	,	_	_	17	P	_	_
+20	another	_	DT	_	_	24	NMOD	_	_
+21	Chicago	_	NNP	_	_	24	NMOD	_	_
+22	bank	_	NN	_	_	24	NMOD	_	_
+23	holding	_	VBG	_	_	24	NMOD	_	_
+24	company	_	NN	_	_	17	APPO	_	_
+25	.	_	.	_	_	4	P	_	_
+
