@@ -300,17 +300,5 @@ def main():
         print 'ACCURACYS:'
         print accuracy(sents, trees_predict)
 
-        correct = 0
-        for predict,actual in zip(trees_predict, sents):
-
-            if predict == actual.tree():
-                correct += 1
-    #            print train
-    #            print actual.tree()
-                pass
-
-        print correct, len(sents)
-
-
 if __name__ == '__main__':
     main()
