@@ -1,9 +1,10 @@
 import os
+import sys
+import copy
 import numpy as np
 import pickle
 from nltk.corpus import dependency_treebank as dp
 from nltk.parse.dependencygraph import DependencyGraph
-import copy
 from nltk.tree import Tree
 from sklearn.svm import SVC
 from sklearn.svm import LinearSVC
@@ -16,7 +17,9 @@ testfiles_dir = [INPATH + folder for folder in folders]
 testfiles = []
 for testfile_dir in testfiles_dir:
     testfiles.append([testfile_dir + file for file in os.listdir(testfile_dir)])
-currently_training = True
+currently_training = False
+if len(sys.argv) > 1:
+    currently_training = int(sys.argv[1])
 
 def tree_to_graph(tree):
     tree2 = tree_map(copy.copy, tree)
@@ -55,10 +58,8 @@ def accuracy(truelist, predictedlist):
         total_sents += 1
         if not predicted:
             continue
-        assert(len(true.nodelist) == len(predicted.nodelist))
         complete = 1
         for true_node, predicted_node in zip(true.nodelist, predicted.nodelist):
-            assert true_node['address'] == predicted_node['address']
             if true_node['address'] == 0:
                 continue
             total_parents += 1
@@ -252,7 +253,7 @@ def gen_svc(train_model):
     for pos_tag in train_model.feature_lists:
         vec = DictVectorizer()
         feature_mat = vec.fit_transform(train_model.feature_lists[pos_tag])
-        trained_svc = OneVsOneClassifier(LinearSVC())
+        trained_svc = SVC()
         trained_svc.fit(feature_mat, np.array(train_model.action_lists[pos_tag]))
         models[pos_tag] = (vec, trained_svc)
     return models
