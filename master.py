@@ -12,7 +12,7 @@ from sklearn.multiclass import OneVsOneClassifier
 from sklearn.feature_extraction import DictVectorizer
 
 INPATH = os.getcwd() + '/dep_treebank/'
-folders = ['02/', '03/', '04/', '05/', '06/', '07/', '08/', '09/', '10/', '11/', '12/']
+folders = ['02/']#, '03/', '04/', '05/', '06/', '07/', '08/', '09/', '10/', '11/', '12/']
 testfiles_dir = [INPATH + folder for folder in folders]
 testfiles = []
 for testfile_dir in testfiles_dir:
@@ -22,6 +22,13 @@ if len(sys.argv) > 1:
     currently_training = int(sys.argv[1])
 
 def tree_to_graph(tree):
+    '''Converts a tree structure to a graph structure. This is for the accuracy() function.
+
+    Args: tree: the tree to convert
+    Returns: a graph representing the tree. note that this graph is really only
+        useable in accuracy() (the only attribute we bother adding is ['head'])
+    Raises: None
+    '''
     tree2 = tree_map(copy.copy, tree)
     def set_heads(tree, parent=0):
         n = label(tree)
@@ -247,14 +254,27 @@ class Predict:
         pred = trained_svc.predict(xmat)
         return pred[0]
 
+class AlwaysPredict:
+    def __init__(self, pred):
+        self.pred = pred
+
+    def predict(self, x):
+        return self.pred
+
 def gen_svc(train_model):
     '''Given a training model, generates the SVM (and DictVectorizer) for it'''
     models = {}
     for pos_tag in train_model.feature_lists:
         vec = DictVectorizer()
         feature_mat = vec.fit_transform(train_model.feature_lists[pos_tag])
-        trained_svc = SVC()
-        trained_svc.fit(feature_mat, np.array(train_model.action_lists[pos_tag]))
+        trained_svc = LinearSVC()
+        try:
+            trained_svc.fit(feature_mat, np.array(train_model.action_lists[pos_tag]))
+        except ValueError:
+            # occasionally we get the same action for everything with a
+            # particular POS, which raises an error. so in that case we just
+            # use a custom class that always predicts the same action
+            trained_svc = AlwaysPredict(train_model.feature_lists[pos_tag][0])
         models[pos_tag] = (vec, trained_svc)
     return models
 
