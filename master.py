@@ -21,6 +21,11 @@ currently_training = False
 if len(sys.argv) > 1:
     currently_training = int(sys.argv[1])
 
+lcontext = rcontext = 2
+if len(sys.argv) > 3:
+    lcontext = int(sys.argv[2])
+    rcontext = int(sys.argv[3])
+
 def tree_to_graph(tree):
     '''Converts a tree structure to a graph structure. This is for the accuracy() function.
 
@@ -303,7 +308,7 @@ def main():
     if currently_training:
         sents = sum([dp.parsed_sents(testfile) for testfile in testfiles], [])
         train = Train()
-        p = Parser(train)
+        p = Parser(train, lcontext, rcontext)
         trees = do_parse(p, sents)
 
         models = gen_svc(train)
@@ -314,7 +319,7 @@ def main():
     else:
         models = pickle.load(open('models.pkl','rb'))
         predict = Predict(models)
-        p = Parser(predict)
+        p = Parser(predict, lcontext, rcontext)
         testfiles2 = [INPATH + '/23/wsj_2300.mrg']
         sents = sum([dp.parsed_sents(testfile) for testfile in testfiles2], [])
         trees_predict = do_parse(p, sents)
