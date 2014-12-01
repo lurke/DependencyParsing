@@ -7,7 +7,8 @@ from sklearn.svm import LinearSVC
 from sklearn.multiclass import OneVsOneClassifier
 from sklearn.feature_extraction import DictVectorizer
 
-INPATH = "/Users/nate/Dropbox/Dependency parsing/data/dep_treebank/"
+INPATH = os.getcwd() + '/dep_treebank/'
+#INPATH = "/Users/nate/Dropbox/Dependency parsing/data/dep_treebank/"
 testfile_dir = INPATH + '00/'
 testfiles = [testfile_dir + file for file in os.listdir(testfile_dir)]
 
