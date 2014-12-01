@@ -1,5 +1,6 @@
 import os
 import numpy as np
+import pickle
 from nltk.corpus import dependency_treebank as dp
 from nltk.tree import Tree
 from sklearn.svm import SVC
@@ -7,9 +8,11 @@ from sklearn.svm import LinearSVC
 from sklearn.multiclass import OneVsOneClassifier
 from sklearn.feature_extraction import DictVectorizer
 
-INPATH = "/Users/nate/Dropbox/Dependency parsing/data/dep_treebank/"
+INPATH = os.getcwd() + '/dep_treebank/'
+#INPATH = "/Users/nate/Dropbox/Dependency parsing/data/dep_treebank/"
 testfile_dir = INPATH + '02/'
 testfiles = [testfile_dir + file for file in os.listdir(testfile_dir)]
+currently_training = False
 
 def tree_map(f, t):
     '''map function for Tree structures'''
@@ -203,31 +206,40 @@ def do_parse(p, l):
     return trees
 
 def main():
-    sents = sum([dp.parsed_sents(testfile) for testfile in testfiles], [])
-    train = Train()
-    p = Parser(train)
-    trees = do_parse(p, sents)
+    if currently_training:
+        sents = sum([dp.parsed_sents(testfile) for testfile in testfiles], [])
+        train = Train()
+        p = Parser(train)
+        trees = do_parse(p, sents)
 
-    vec, svc = gen_svc(train)
-    predict = Predict(vec, svc)
-    p = Parser(predict)
-    testfiles2 = [INPATH + '/23/wsj_2300.mrg']
-    sents = sum([dp.parsed_sents(testfile) for testfile in testfiles2], [])
-    trees_predict = do_parse(p, sents)
+        vec, svc = gen_svc(train)
+        pkl = open('svc.pkl','wb')
+        pickle.dump(svc,pkl)
+        pkl.close()
+        pkl = open('vec.pkl','wb')
+        pickle.dump(vec,pkl)
+        pkl.close()
 
-    correct = 0
-    for train,predict,actual in zip(trees, trees_predict, sents):
-        if train != predict:
-            print train
-            print predict
+    else:
+        svc = pickle.load(open('svc.pkl','rb'))
+        vec = pickle.load(open('vec.pkl','rb'))
 
-        if predict == actual.tree():
-            correct += 1
-#            print train
-#            print actual.tree()
-            pass
+        predict = Predict(vec, svc)
+        p = Parser(predict)
+        testfiles2 = [INPATH + '/23/wsj_2300.mrg']
+        sents = sum([dp.parsed_sents(testfile) for testfile in testfiles2], [])
+        trees_predict = do_parse(p, sents)
 
-    print correct, len(sents)
+        correct = 0
+        for predict,actual in zip(trees_predict, sents):
+
+            if predict == actual.tree():
+                correct += 1
+    #            print train
+    #            print actual.tree()
+                pass
+
+        print correct, len(sents)
 
 if __name__ == '__main__':
     main()
