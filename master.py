@@ -114,9 +114,10 @@ Left = 1
 Right = 2
 Shift = 3
 class Parser(object):
-    def __init__(self, model, context=2):
+    def __init__(self, model, lcontext=2, rcontext=2):
         self.model = model
-        self.context = context
+        self.lcontext = lcontext
+        self.rcontext = rcontext
     
     def construction(self, T, i, y):
         '''Performs y (Left, Right, Shift) at ith position in T
@@ -167,7 +168,7 @@ class Parser(object):
 
     def get_contextual_features(self, T, i):
         '''Gets all the features for looking at element i of T (including context)'''
-        low, high = i - self.context, i + self.context + 1
+        low, high = i - self.lcontext, i + self.rcontext + 1
         if low < 0:
             low = 0
         if high >= len(T):
@@ -267,7 +268,7 @@ def gen_svc(train_model):
     for pos_tag in train_model.feature_lists:
         vec = DictVectorizer()
         feature_mat = vec.fit_transform(train_model.feature_lists[pos_tag])
-        trained_svc = LinearSVC()
+        trained_svc = OneVsOneClassifier(LinearSVC())
         try:
             trained_svc.fit(feature_mat, np.array(train_model.action_lists[pos_tag]))
         except ValueError:
