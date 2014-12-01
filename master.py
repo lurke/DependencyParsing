@@ -12,7 +12,10 @@ from sklearn.multiclass import OneVsOneClassifier
 from sklearn.feature_extraction import DictVectorizer
 
 INPATH = os.getcwd() + '/dep_treebank/'
-folders = ['02/']#, '03/', '04/', '05/', '06/', '07/', '08/', '09/', '10/', '11/', '12/']
+folders = [
+    '02/', '03/', '04/', '05/', '06/', '07/', '08/', '09/', '10/', '11/',\
+    '12/', '13/', '14/', '15/', '16/', '17/', '18/', '19/', '20/', '21/'
+]
 testfiles_dir = [INPATH + folder for folder in folders]
 testfiles = []
 for testfile_dir in testfiles_dir:
@@ -320,7 +323,8 @@ def main():
         models = pickle.load(open('models.pkl','rb'))
         predict = Predict(models)
         p = Parser(predict, lcontext, rcontext)
-        testfiles2 = [INPATH + '/23/wsj_2300.mrg']
+        testfiles2_dir = INPATH + '23/'
+        testfiles2 = [testfiles2_dir + file for file in os.listdir(testfiles2_dir)]
         sents = sum([dp.parsed_sents(testfile) for testfile in testfiles2], [])
         trees_predict = do_parse(p, sents)
 
