@@ -8,10 +8,11 @@ import nltk
 from nltk.corpus import dependency_treebank as dp
 import os
 
-INPATH = "/home/henrik/Dropbox/Dependency parsing/data/dep_treebank/"
+INPATH = os.getcwd() + '/dep_treebank'
+#INPATH = "/home/henrik/Dropbox/Dependency parsing/data/dep_treebank/"
 SECTIONS=["02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21"]
 SECTIONS=["02"] # only use these sections for now
-testfile = INPATH + "23/wsj_2300.mrg" # only using one test file for now
+testfile = INPATH + "/23/wsj_2300.mrg" # only using one test file for now
 
 def accuracy(truelist, predictedlist):
     '''

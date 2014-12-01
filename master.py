@@ -64,7 +64,7 @@ class Parser(object):
         # we skip this new tree now and look at the next 2 tokens in our tree.
         # both seem like they should work? (and give similar results) but
         # it's unclear if there's a meaningful difference
-        return i+1
+        return i
 
     def get_poslex(self, node, parent_addr, rel):
         '''Gets features for a single node (and determines if node is parent
@@ -240,6 +240,7 @@ def main():
                 pass
 
         print correct, len(sents)
+
 
 if __name__ == '__main__':
     main()
