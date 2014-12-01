@@ -11,10 +11,12 @@ from sklearn.multiclass import OneVsOneClassifier
 from sklearn.feature_extraction import DictVectorizer
 
 INPATH = os.getcwd() + '/dep_treebank/'
-#INPATH = "/Users/nate/Dropbox/Dependency parsing/data/dep_treebank/"
-testfile_dir = INPATH + '02/'
-testfiles = [testfile_dir + file for file in os.listdir(testfile_dir)]
-currently_training = False
+folders = ['02/', '03/', '04/', '05/', '06/', '07/', '08/', '09/', '10/', '11/', '12/']
+testfiles_dir = [INPATH + folder for folder in folders]
+testfiles = []
+for testfile_dir in testfiles_dir:
+    testfiles.append([testfile_dir + file for file in os.listdir(testfile_dir)])
+currently_training = True
 
 def tree_to_graph(tree):
     tree2 = tree_map(copy.copy, tree)
@@ -195,8 +197,8 @@ class TestModel:
 
 class Train:
     def __init__(self):
-        self.feature_list = []
-        self.action_list = []
+        self.feature_lists = {}
+        self.action_lists = {}
 
     def estimate_action(self, T, i, x):
         node1 = T[i]
@@ -223,29 +225,37 @@ class Train:
                 and set(node2['deps']) == set(node2children):
             ret = Left
 
-        self.feature_list.append(x)
-        self.action_list.append(ret)
+        pos_tag = node1['ctag']
+        if pos_tag not in self.feature_lists:
+            self.feature_lists[pos_tag] = []
+            self.action_lists[pos_tag] = []
+        self.feature_lists[pos_tag].append(x)
+        self.action_lists[pos_tag].append(ret)
         return ret
 
 class Predict:
-    def __init__(self, dictvec, trained_svc):
-        self.dictvec = dictvec
-        self.trained_svc = trained_svc
+    def __init__(self, models):
+        self.models = models
 
     def estimate_action(self, T, i, x):
         # convert to a vector and then use our SVM predictor
-        xmat = self.dictvec.transform(x)
-        pred = self.trained_svc.predict(xmat)
+        pos_tag = label(T[i])['ctag']
+        dictvec = self.models[pos_tag][0]
+        trained_svc = self.models[pos_tag][1]
+        xmat = dictvec.transform(x)
+        pred = trained_svc.predict(xmat)
         return pred[0]
 
 def gen_svc(train_model):
     '''Given a training model, generates the SVM (and DictVectorizer) for it'''
-    vec = DictVectorizer()
-    feature_mat = vec.fit_transform(train_model.feature_list)
-    # for some reason just SVC() seems to always suggest "Shift"
-    trained_svc = OneVsOneClassifier(LinearSVC())
-    trained_svc.fit(feature_mat, np.array(train_model.action_list))
-    return vec, trained_svc
+    models = {}
+    for pos_tag in train_model.feature_lists:
+        vec = DictVectorizer()
+        feature_mat = vec.fit_transform(train_model.feature_lists[pos_tag])
+        trained_svc = OneVsOneClassifier(LinearSVC())
+        trained_svc.fit(feature_mat, np.array(train_model.action_lists[pos_tag]))
+        models[pos_tag] = (vec, trained_svc)
+    return models
 
 def do_parse(p, l):
     '''Given a Parser object and a list of sentences, parses each sentence
@@ -274,19 +284,14 @@ def main():
         p = Parser(train)
         trees = do_parse(p, sents)
 
-        vec, svc = gen_svc(train)
-        pkl = open('svc.pkl','wb')
-        pickle.dump(svc,pkl)
-        pkl.close()
-        pkl = open('vec.pkl','wb')
-        pickle.dump(vec,pkl)
+        models = gen_svc(train)
+        pkl = open('models.pkl','wb')
+        pickle.dump(models, pkl)
         pkl.close()
 
     else:
-        svc = pickle.load(open('svc.pkl','rb'))
-        vec = pickle.load(open('vec.pkl','rb'))
-
-        predict = Predict(vec, svc)
+        models = pickle.load(open('models.pkl','rb'))
+        predict = Predict(models)
         p = Parser(predict)
         testfiles2 = [INPATH + '/23/wsj_2300.mrg']
         sents = sum([dp.parsed_sents(testfile) for testfile in testfiles2], [])
