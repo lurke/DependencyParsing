@@ -1,0 +1,45 @@
+Phase 2
+Dependency Parsing
+Nathaniel Herman
+
+So far this implementation is mostly working. You can run the parser with
+a training model which uses the actual dependency tree to predict the
+shift, left, and rights with full accuracy. Then you can create an SVM
+based on this training data and run other data through the parser with a 
+predictor model which uses the SVM to predict the shifts, lefts, and rights.
+
+Currently this all works completely for most of the files in at least wsj/00
+in the penn treebank dataset. The way I test it currently is to just run
+the predictor on the same data set as the training, which should theoretically
+give the same results, at least most of the time. This is indeed true, though
+when run on the entire 00 dataset, we do get some mismatches (usually things
+like parent relations being slightly off in the predicted sentence). This may
+just be because with a large enough dataset, we actually do predict different
+things when run on the same dataset.
+
+There is also something a little weird where the training model sometimes
+doesn't manage to completely parse the sentence, and instead ends up
+with several uncombined subtrees (this happens when the algorithm chooses to 
+shift every element in our list for a certain iteration, rather than doing a 
+right or left on any of them). This happens fairly seldomly, and probably
+means I'm combining the trees in such a way that we become unable to construct
+the original. I'm not too sure how to handle this--currently I combine 2 trees
+if there is a child-parent relation between them AND the child has no children
+of its own that still need to be added to it. This might not be enough, though?
+
+What's missing:
+The above issues should be fixed. Then we need to run on the full dataset!
+This will take a long time, and may require us to implement section 4.2 of the
+paper, where they create different SVMs for each POS tag to make the
+calculation of the SVM tractable.
+Then we need to implement code that checks the accuracy of our predictor model,
+so we can see if we're getting the same accuracy as the paper.
+
+
+Update: see "Among ..." in wsj0003.mrg, it seems the problem is that 
+the "true" dependency graph relies on a dependency between words that aren't
+directly adjacent. number is supposed to be a child of 28, but 28 is a child of have, and the sentence is "28 have ... number". Thus, 28 and number are never
+adjacent to become parent/child, so we can't fully reduce.
+
+This seems like a problem in the paper, too--I'm not so sure how to/if we can
+fix this...
