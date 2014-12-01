@@ -36,10 +36,3 @@ Then we need to implement code that checks the accuracy of our predictor model,
 so we can see if we're getting the same accuracy as the paper.
 
 
-Update: see "Among ..." in wsj0003.mrg, it seems the problem is that 
-the "true" dependency graph relies on a dependency between words that aren't
-directly adjacent. number is supposed to be a child of 28, but 28 is a child of have, and the sentence is "28 have ... number". Thus, 28 and number are never
-adjacent to become parent/child, so we can't fully reduce.
-
-This seems like a problem in the paper, too--I'm not so sure how to/if we can
-fix this...
