@@ -1,6 +1,8 @@
 import os
 import numpy as np
 from nltk.corpus import dependency_treebank as dp
+from nltk.parse.dependencygraph import DependencyGraph
+import copy
 from nltk.tree import Tree
 from sklearn.svm import SVC
 from sklearn.svm import LinearSVC
@@ -10,6 +12,64 @@ from sklearn.feature_extraction import DictVectorizer
 INPATH = "/Users/nate/Dropbox/Dependency parsing/data/dep_treebank/"
 testfile_dir = INPATH + '02/'
 testfiles = [testfile_dir + file for file in os.listdir(testfile_dir)]
+
+def tree_to_graph(tree):
+    tree2 = tree_map(copy.copy, tree)
+    def set_heads(tree, parent=0):
+        n = label(tree)
+        n['head'] = parent
+        if isinstance(tree, Tree):
+            [set_heads(child, n['address']) for child in tree]
+    set_heads(tree2)
+
+    def all_elems(tree):
+        elems = [label(tree)]
+        if isinstance(tree, Tree):
+            for t in tree:
+                elems += all_elems(t)
+        return elems
+
+    dg = DependencyGraph()
+    dg.root = dg.nodelist[0]
+    all = all_elems(tree2)
+    all.sort(key=lambda t: label(t)['address'])
+    dg.nodelist += all
+
+    return dg
+
+def accuracy(truelist, predictedlist):
+    '''
+    calculate the accuracy of predicted dependency trees predictedlist compared to true trees truelist
+    '''
+    correct_parents = 0
+    total_parents = 0
+    correct_roots = 0
+    total_sents = 0
+    complete_sentences = 0
+    for true, predicted in zip(truelist, predictedlist):
+        total_sents += 1
+        if not predicted:
+            continue
+        assert(len(true.nodelist) == len(predicted.nodelist))
+        complete = 1
+        for true_node, predicted_node in zip(true.nodelist, predicted.nodelist):
+            assert true_node['address'] == predicted_node['address']
+            if true_node['address'] == 0:
+                continue
+            total_parents += 1
+            if true_node['head'] == predicted_node['head']:
+                correct_parents += 1
+            else:
+                complete = 0
+            if true_node['head'] == 0 and predicted_node['head'] == 0:
+                correct_roots += 1
+        if complete == 1:
+            complete_sentences += 1
+    dep_acc = 1.*correct_parents/total_parents
+    root_acc = 1.*correct_roots/total_sents
+    comp_acc = 1.*complete_sentences/total_sents
+    print 'total_sents', total_sents
+    return (dep_acc, root_acc, comp_acc)
 
 def tree_map(f, t):
     '''map function for Tree structures'''
@@ -61,7 +121,7 @@ class Parser(object):
         # we skip this new tree now and look at the next 2 tokens in our tree.
         # both seem like they should work? (and give similar results) but
         # it's unclear if there's a meaningful difference
-        return i
+        return i+1
 
     def get_poslex(self, node, parent_addr, rel):
         '''Gets features for a single node (and determines if node is parent
@@ -196,10 +256,12 @@ def do_parse(p, l):
         i+=1
         if len(ts) > 1:
             print "couldn't fully reduce..."
-            trees.append(map(lambda t: str(wordify(t)), ts))
+            #trees.append(map(lambda t: str(wordify(t)), ts))
+            trees.append(None)
         else:
             #print tree_map(lambda w: w['word'], ts[0])
-            trees.append(wordify(ts[0]))
+            trees.append(tree_to_graph(ts[0]))
+#            trees.append(wordify(ts[0]))
     return trees
 
 def main():
@@ -216,6 +278,10 @@ def main():
     trees_predict = do_parse(p, sents)
 
     correct = 0
+    
+    print 'ACCURACYS:'
+    print accuracy(sents, trees_predict)
+
     for train,predict,actual in zip(trees, trees_predict, sents):
         if actual.tree() != predict:
             print actual.tree()
