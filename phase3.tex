@@ -16,7 +16,7 @@
     \hrule
 
     \section*{How to Run}
-    To run the project, it is sufficient to run the python file \texttt{master.py}. There are several additional flags that can be added. To train the model, call \texttt{python master.py 1}, and this will train a model and save it to a \texttt{pickle} file. Then call \texttt{python master.py} and the program will test that model on the test data. We have also included some pre-existing models that we've trained with different SVM types. The file \texttt{linear.pkl} contains a model using instances of \texttt{LinearSVC()} (using one-vs-many classification), while the file \texttt{one\_vs\_one\_linear.pkl} contains a model using instances of \texttt{OneVsOneClassifier(LinearSVC())}. To test with either of these pre-trained models, simply rename the model to \texttt{models.pkl} and the run the program with no arguments. When training, the default will be to use (2,2) as the context for the target nodes, however custom left and right contexts can be specified by running \texttt{python master.py 1 l r} (where \texttt{l} and \texttt{r} are the left and right context lengths).
+    To run the project, it is sufficient to run the python file \texttt{master.py}. There are several additional flags that can be added. To train the model, call \texttt{python master.py 1}, and this will train a model and save it to a \texttt{pickle} file. Then call \texttt{python master.py} and the program will test that model on the test data. We have also included some pre-existing models that we've trained with different SVM types. The file \texttt{linear.pkl} contains a model using instances of \texttt{LinearSVC()} (using one-vs-many classification), while the file \texttt{one\_vs\_one\_linear.pkl} contains a model using instances of \texttt{OneVsOneClassifier(LinearSVC())}. To test with either of these pre-trained models, simply rename the model to \texttt{models.pkl} and the run the program with no arguments. When training, the default will be to use (2,2) as the context for the target nodes, however custom left and right contexts can be specified by running \texttt{python master.py 1 l r} (where \texttt{l} and \texttt{r} are the left and right context lengths). In addition, \texttt{pickle} files named \texttt{models\_l\_r.pkl} are also provided, containing a one-vs-one model trained with the context pair ($l$, $r$) specified in the file name. When testing a model that was trained a context pair ($l$, $r$) different from the default (2,2), make sure to run \texttt{python master.py 0 l r} so that the predicting code feeds in feature sets that match those used to train the model.
 
     \section*{State of the Implementation}
     The implementation works fully, from training data through accuracy evaluation on testing data. We tried several support vector machines from the \texttt{scikit-learn} package, in an attempt to match the accuracy metrics found in the paper. Using a one-vs-one classifier, we find the following values (with context (2,2)):
@@ -37,9 +37,9 @@
     \begin{center}
         \begin{tabular}{|l|cccc|cccc|}
             \cline{2-9} \multicolumn{1}{c|}{} & (2,2) & (2,3) & (2,4) & (2,5) & (3,2) & (3,3) & (3,4) & (3,5) \\ \hline
-            Dep. Acc. & 0.891 &&&&&&& \\
-            Root Acc. & 0.644 &&&&&&& \\
-            Comp. Rate & 0.225 &&&&&&& \\ \hline
+            Dep. Acc. & 0.891 &&& 0.890 & 0.890 & 0.890 && \\
+            Root Acc. & 0.644 &&& 0.656 & 0.650 & 0.665 && \\
+            Comp. Rate & 0.225 &&& 0.230 & 0.217 & 0.227 && \\ \hline
         \end{tabular}
     \end{center}
 
