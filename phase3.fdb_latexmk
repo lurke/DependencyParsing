@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1417486145 "phase3.tex" "phase3.pdf" "phase3" 1417486146
+["pdflatex"] 1417492359 "phase3.tex" "phase3.pdf" "phase3" 1417492360
   "/usr/local/texlive/2012/texmf-dist/tex/context/base/supp-pdf.mkii" 1337017135 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/local/texlive/2012/texmf-dist/tex/generic/ifxetex/ifxetex.sty" 1284331290 1458 43ab4710dc82f3edeabecd0d099626b2 ""
   "/usr/local/texlive/2012/texmf-dist/tex/generic/oberdiek/etexcmds.sty" 1335995445 7612 c47308d923ec19888707b0f1792b326a ""
@@ -43,9 +43,9 @@
   "/usr/local/texlive/2012/texmf-dist/tex/latex/oberdiek/grfext.sty" 1335995445 7075 bd0c34fbf1ae8fd1debd2a554e41b2d5 ""
   "/usr/local/texlive/2012/texmf-dist/tex/latex/oberdiek/kvoptions.sty" 1335995445 22417 c74ff4af6a1aa2b65d1924020edbbe11 ""
   "/usr/local/texlive/2012/texmf-dist/tex/latex/pdftex-def/pdftex.def" 1306616590 55368 3c8a0d99822330f2dfabc0dfb09ce897 ""
-  "phase3.aux" 1417486146 8 a94a2480d3289e625eea47cd1b285758 ""
-  "phase3.tex" 1417486145 4706 e8b4944a4cc0ce9b2341ee9f8cf9e010 ""
+  "phase3.aux" 1417492360 8 a94a2480d3289e625eea47cd1b285758 ""
+  "phase3.tex" 1417492335 5111 76d20160f7cdd1f8edcf2396e865c8a9 ""
   (generated)
-  "phase3.log"
   "phase3.pdf"
+  "phase3.log"
   "phase3.aux"
