@@ -76,6 +76,7 @@ def accuracy(truelist, predictedlist):
     complete_sentences = 0
     for true, predicted in zip(truelist, predictedlist):
         total_sents += 1
+        # if we couldn't fully reduce, we just count that as a miss
         if not predicted:
             continue
         complete = 1
