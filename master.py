@@ -34,7 +34,7 @@ def tree_to_graph(tree):
 
     Args: tree: the tree to convert
     Returns: a graph representing the tree. note that this graph is really only
-        useable in accuracy() (the only attribute we bother adding is ['head'])
+        useable in accuracy() (the only attribute we bother setting is 'head')
     Raises: None
     '''
     tree2 = tree_map(copy.copy, tree)
@@ -61,8 +61,13 @@ def tree_to_graph(tree):
     return dg
 
 def accuracy(truelist, predictedlist):
-    '''
-    calculate the accuracy of predicted dependency trees predictedlist compared to true trees truelist
+    '''Calculate the accuracy of predicted dependency trees predictedlist compared to true trees truelist
+
+    Args:
+        truelist: list of true dependency graphs
+        predictedlist: list of predicted dependency graphs
+    Returns: (dependency_accuracy, root_accuracy, complete_sentence_accuracy)
+    Raises: None
     '''
     correct_parents = 0
     total_parents = 0
@@ -93,22 +98,55 @@ def accuracy(truelist, predictedlist):
     return (dep_acc, root_acc, comp_acc)
 
 def tree_map(f, t):
-    '''map function for Tree structures'''
+    '''map function for Tree structures
+
+    Args:
+        f: function to apply to each element in tree
+        t: tree to map
+    Returns: new tree where every element e\in t is now f(e)
+    Raises: None
+    '''
     if isinstance(t, Tree):
         return Tree(f(t.label()), map(lambda t2: tree_map(f, t2), t))
     return f(t)
 
 def wordify(tree):
+    '''Turns a tree of nodes into a tree of words (for more useful outputs)
+
+    Args: tree: tree to wordify
+    Returns: a new tree where elements are now just words, not nodes
+    Raises: None
+    '''
     return tree_map(lambda w: w['word'], tree)
 
 def label(t):
+    '''Gets label of a tree (this is the value of a given point in the tree,
+    or the node itself if t is a node not a tree
+
+    Args: t: node or tree to consider
+    Returns: label/node of the tree
+    Raises: None
+    '''
     return t.label() if isinstance(t, Tree) else t
 
 def address(n):
+    '''Gets address of node/tree n
+
+    Args: n: node/tree to consider
+    Returns: address (e.g. location in the sentence)
+    Raises: None
+    '''
     return label(n)['address']
 
 def make_parent(t1, t2):
-    '''Makes t1 a parent of t2'''
+    '''Makes t1 a parent of t2
+
+    Args: 
+        t1: node/tree to make parent
+        t2: node/tree to make child
+    Returns: tree where t1 is parent of t2
+    Raises: None
+    '''
     if isinstance(t1, Tree):
         # add to list of children
         t1.append(t2)
@@ -123,6 +161,14 @@ Right = 2
 Shift = 3
 class Parser(object):
     def __init__(self, model, lcontext=2, rcontext=2):
+        '''init function
+        
+        Args:
+            model: modeling class to use (either a training model or predictor)
+            lcontext: how far to the left of current location to consider
+            rcontext: how far to the right to consider
+        Returns: Raises: None
+        '''
         self.model = model
         self.lcontext = lcontext
         self.rcontext = rcontext
@@ -130,7 +176,13 @@ class Parser(object):
     def construction(self, T, i, y):
         '''Performs y (Left, Right, Shift) at ith position in T
 
-        Returns: the next index to look at.'''
+        Args:
+            T: array to consider
+            i: location in T to look at (we con
+            y: action to perform
+        Returns: the next index in T to look at.
+        Raises: None
+        '''
         if y == Left:
             t2 = make_parent(T[i], T[i+1])
         elif y == Right:
@@ -147,22 +199,35 @@ class Parser(object):
 
     def get_poslex(self, node, parent_addr, rel):
         '''Gets features for a single node (and determines if node is parent
-        or child so as to mark the features appropriately)'''
+        or child so as to mark the features appropriately)
+
+        Args:
+            node: what node to consider (this should be a graph node)
+            parent_addr: == parent_node['address'] 
+              (parent's location in sentence)
+            rel: relative index of this node
+        Returns: dictionary which maps the features of this node to 1's
+        Raises: None
+        '''
         types = ['pos', 'lex']
         # left child
         if node['address'] < parent_addr:
             types = ['ch-L-' + s for s in types]
         elif node['address'] > parent_addr:
             types = ['ch-R-' + s for s in types]
+        # we have 2 attributes per node: its POS (ctag), and what word it is
         return {repr((rel, types[0], node['ctag'])): 1, repr((rel, types[1], node['word'])): 1}
 
     def get_single_features(self, T, i, j):
         '''Gets features for a single element of T (includes children features)
 
-        Args: T: array we're looking at
-        i: index of element in T we're looking at
-        j: index of the base element we're considering. This is "i" in the 
-        paper (just used to calculate our relative index)
+        Args: 
+            T: array we're looking at
+            i: index of element in T we're looking at
+            j: index of the base element we're considering. This is "i" in the 
+            paper (just used to calculate our relative index)
+        Returns: dictionary mapping features of this element to 1's
+        Raises: None
         '''
         t = T[i]
         rel = i-j
@@ -175,7 +240,15 @@ class Parser(object):
         return dict
 
     def get_contextual_features(self, T, i):
-        '''Gets all the features for looking at element i of T (including context)'''
+        '''Gets all the features for looking at element i of T (including context)
+        
+        Args:
+            T: array we're considering
+            i: where in T to look
+        Returns: dictionary mapping features of this element and contextual
+            elements to 1's (used to make our SVM matrix)
+        Raises: None
+        '''
         low, high = i - self.lcontext, i + self.rcontext + 1
         if low < 0:
             low = 0
@@ -189,7 +262,19 @@ class Parser(object):
         return d
 
     def parse(self, T):
-        '''Parses a sentence into a dependency graph'''
+        '''Parses a sentence into a dependency graph
+
+        Args: 
+            T: the list of words in the sentence (each word is in
+            the form of a graph node). This list should come from 
+            dp.parsed_sents()
+        Returns: list of final reduced dependency trees. Generally this will 
+            only contain 1 element, a fully reduced tree. However in some cases
+            it may not be possible to fully reduce the tree, in which case
+            the list contains the subtrees that were produced before progress
+            could no longer be made
+        Raises: None
+        '''
         # pretty much straight from the paper
         i = 0
         no_construction = True
@@ -207,17 +292,26 @@ class Parser(object):
                     no_construction = False
         return T
 
-class TestModel:
-    def estimate_action(self, T, i, x):
-        return Left
-
-
 class Train:
+    '''Class model used for training'''
     def __init__(self):
+        '''init function
+
+        Args: Returns: Raises: None
+        '''
         self.feature_lists = {}
         self.action_lists = {}
 
     def estimate_action(self, T, i, x):
+        '''calculates the action to perform between the ith and i+1th elems of T (using actual dependeny relations)
+
+        Args:
+            T: array of elements (as used in the paper)
+            i: where in T to consider (we look at the ith and i+1th elements)
+            x: feature dictionary to use for prediction
+        Returns: Action to perform (Shift, Left, or Right)
+        Raises: None
+        '''
         node1 = T[i]
         node1children = []
         if isinstance(node1, Tree):
@@ -251,10 +345,28 @@ class Train:
         return ret
 
 class Predict:
+    '''Predictor model. Uses SVM(s) to predict actions'''
     def __init__(self, models):
+        '''init function
+
+        Args:
+            models: return value of gen_svc() (dict from POS tag to a tuple
+            of a dictvectorizer and an SVM). What this predictor will use
+            for its prediction
+        Returns: Raises: None
+        '''
         self.models = models
 
     def estimate_action(self, T, i, x):
+        '''estimates the action to perform between the ith and i+1th elems of T using SVMs
+        
+        Args:
+            T: array of elements (as used in the paper)
+            i: where in T to consider (we look at the ith and i+1th elements)
+            x: feature dictionary to use for prediction
+        Returns: Action to perform (Shift, Left, or Right)
+        Raises: None
+        '''
         # convert to a vector and then use our SVM predictor
         pos_tag = label(T[i])['ctag']
         dictvec = self.models[pos_tag][0]
@@ -264,14 +376,36 @@ class Predict:
         return pred[0]
 
 class AlwaysPredict:
+    '''Simple SVM emulator which always predicts the same value. A hack for the SVM library code.'''
     def __init__(self, pred):
+        '''init function
+
+        Args: pred: value this class will always predict
+        Return: None
+        Raises: None
+        '''
         self.pred = pred
 
     def predict(self, x):
+        '''Predicts what action to use
+        
+        Args: x: ignored (feature matrix)
+        Return: Always the same prediction (as specified in __init__)
+        Raises: None
+        '''
         return self.pred
 
 def gen_svc(train_model):
-    '''Given a training model, generates the SVM (and DictVectorizer) for it'''
+    '''Given a training model, generates the SVM (and DictVectorizer) for it
+
+    Args: 
+        train_model: a training model object. should have 2 attributes:
+        feature_lists, a map from POS tag to a dictionary of features
+        (the ones used in the ith decision), and action_lists, a map from
+        POS tag to the action (Shift, Left, Right) chosen for the ith decision
+    Returns: dictionary mapping POS tag to a vectorizer, SVM tuple
+    Raises: None
+    '''
     models = {}
     for pos_tag in train_model.feature_lists:
         vec = DictVectorizer()
@@ -287,27 +421,33 @@ def gen_svc(train_model):
         models[pos_tag] = (vec, trained_svc)
     return models
 
-def do_parse(p, l):
+def do_parse(parser, sents):
     '''Given a Parser object and a list of sentences, parses each sentence
     and builds up a list of the resulting dependency trees (1 per sentence)
+
+    Args:
+        parser: Parser object to use
+        sents: list of sentences (in the form of dependency graphs) to parse
+    Returns:
+        List of parsed trees/graphs for each sentence.
+    Raises: None
     '''
     trees = []
     i = 1
-    for sent in l:
-        ts = p.parse(sent.nodelist[1:])
+    for sent in sents:
+        ts = parser.parse(sent.nodelist[1:])
         print 'sentence %d' % i
         i+=1
         if len(ts) > 1:
             print "couldn't fully reduce..."
-            #trees.append(map(lambda t: str(wordify(t)), ts))
+            # for now we just mark this as a failure and count it is as incorrect
             trees.append(None)
         else:
-            #print tree_map(lambda w: w['word'], ts[0])
             trees.append(tree_to_graph(ts[0]))
-#            trees.append(wordify(ts[0]))
     return trees
 
 def main():
+    '''main function. either trains the model or tests it on a dataset'''
     if currently_training:
         sents = sum([dp.parsed_sents(testfile) for testfile in testfiles], [])
         train = Train()
