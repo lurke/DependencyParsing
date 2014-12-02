@@ -26,6 +26,7 @@
             0.89135 & 0.64363 & 0.22475 \\ \hline
         \end{tabular}
     \end{center}
+This result corresponds to column 1 of Table 2 in the paper. It is slightly lower.
     Using a one-vs-many classifier, we find the following values (again with context (2,2)):
     \begin{center}
         \begin{tabular}{|c|c|c|}
@@ -33,7 +34,8 @@
             0.88680 & 0.64280 & 0.22103 \\ \hline
         \end{tabular}
     \end{center}
-    Having determined that several other SVM options offered by the \texttt{scikit-learn} package did not work with this method, we settled on training and testing with the one-vs-one classifier using \texttt{OneVsOneClassifier(LinearSVC())}. We then tried different context lengths, and obtained the following results (the ($l$,$r$) number pairs correspond to context lengths on either side of the target nodes:
+   
+We also tried the Crammer-Singer method, and got roughly the same results. As we did not get the polynomial kernel SVMs to work in our setting we settled on training and testing with the one-vs-one classifier using \texttt{OneVsOneClassifier(LinearSVC())} throughout. We then tried different context lengths, and obtained the following results (the ($l$,$r$) number pairs correspond to context lengths on either side of the target nodes:
     \begin{center}
         \begin{tabular}{|l|cccc|cccc|}
             \cline{2-9} \multicolumn{1}{c|}{} & (2,2) & (2,3) & (2,4) & (2,5) & (3,2) & (3,3) & (3,4) & (3,5) \\ \hline
@@ -42,7 +44,9 @@
             Comp. Rate & 0.225 &&& 0.230 & 0.217 & 0.227 && \\ \hline
         \end{tabular}
     \end{center}
-    Our results have somewhat worse accuracy than that in the paper--we suspect a few reasons for this: for one, polynomial SVMs like those used in the paper weren't working at all for us, so we only use linear SVMs, which may have worse accuracy (we tried the Crammer-Singer method, too, but got roughly the same results).
+
+Note that although this mirrors Table 3 in the paper, it is not a perfect replication as we are using a linear SVM whereas they use an SVM with a second order polynomial kernel. It is not surprising then that our results are somewhat worse.
+%    Our results have somewhat worse accuracy than that in the paper--we suspect a few reasons for this: for one, SVMs with polynomial kernel functions like those used in the paper weren't working at all for us, so we only use linear SVMs, which may have worse accuracy 
 
     \section*{Statement of Work}
     Our initial attempts at replication were implemented to various degrees of completion, so for the final implementation we worked off of Nate's and Henrik's versions, which had reasonable accuracy rates when tested on toy data. Nate's implementation was faster, however Henrik's implementation had all accuracy measurements implemented, so they worked together to port this functionality to Nate's code, which used a slightly different encoding for the parse trees. Lauren worked on splitting up the testing and training functionality for reusability, specifically using \texttt{pickle} to save trained models. Ariel worked on implementing section 4.2 of the paper, namely using multiple SVMs, based on the POS tag of the left target node in a given target pair (this allows for a greatly reduced running time). We then all worked on improving the accuracy by testing various SVM types. We also all contributed to training and testing different models and compiling them in the writeup.
