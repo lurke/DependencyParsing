@@ -42,6 +42,7 @@
             Comp. Rate & 0.225 &&& 0.230 & 0.217 & 0.227 && \\ \hline
         \end{tabular}
     \end{center}
+    Our results have somewhat worse accuracy than that in the paper--we suspect a few reasons for this: for one, polynomial SVMs like those used in the paper weren't working at all for us, so we only use linear SVMs, which may have worse accuracy (we tried the Crammer-Singer method, too, but got roughly the same results).
 
     \section*{Statement of Work}
     Our initial attempts at replication were implemented to various degrees of completion, so for the final implementation we worked off of Nate's and Henrik's versions, which had reasonable accuracy rates when tested on toy data. Nate's implementation was faster, however Henrik's implementation had all accuracy measurements implemented, so they worked together to port this functionality to Nate's code, which used a slightly different encoding for the parse trees. Lauren worked on splitting up the testing and training functionality for reusability, specifically using \texttt{pickle} to save trained models. Ariel worked on implementing section 4.2 of the paper, namely using multiple SVMs, based on the POS tag of the left target node in a given target pair (this allows for a greatly reduced running time). We then all worked on improving the accuracy by testing various SVM types. We also all contributed to training and testing different models and compiling them in the writeup.

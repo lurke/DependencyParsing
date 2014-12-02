@@ -37,7 +37,10 @@ def tree_to_graph(tree):
         useable in accuracy() (the only attribute we bother setting is 'head')
     Raises: None
     '''
+    # nodes are dictionaries, which are mutable. So we copy them so we can 
+    # change attributes without changing the original nodes
     tree2 = tree_map(copy.copy, tree)
+    # set the head attributes of each node according to our tree structure
     def set_heads(tree, parent=0):
         n = label(tree)
         n['head'] = parent
@@ -45,6 +48,8 @@ def tree_to_graph(tree):
             [set_heads(child, n['address']) for child in tree]
     set_heads(tree2)
 
+    # now we need to generate our nodelist. This requires getting all the
+    # elements ("labels") of our tree and putting them in a flat list
     def all_elems(tree):
         elems = [label(tree)]
         if isinstance(tree, Tree):
@@ -55,6 +60,7 @@ def tree_to_graph(tree):
     dg = DependencyGraph()
     dg.root = dg.nodelist[0]
     all = all_elems(tree2)
+    # nodelist should be ordered by address
     all.sort(key=lambda t: label(t)['address'])
     dg.nodelist += all
 
