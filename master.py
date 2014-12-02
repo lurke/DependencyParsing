@@ -81,10 +81,10 @@ def accuracy(truelist, predictedlist):
     total_sents = 0
     complete_sentences = 0
     for true, predicted in zip(truelist, predictedlist):
-        total_sents += 1
-        # if we couldn't fully reduce, we just count that as a miss
+        # if we couldn't fully reduce, we just ignore it
         if not predicted:
             continue
+        total_sents += 1
         complete = 1
         for true_node, predicted_node in zip(true.nodelist, predicted.nodelist):
             if true_node['address'] == 0:
