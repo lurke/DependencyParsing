@@ -1,0 +1,48 @@
+\documentclass[12pt,fleqn]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{enumitem}
+
+\title{CS 187 - Dependency Parsing\\Phase 3: Final Implementation}
+\author{Lauren Urke, Nathaniel Herman, Henrik Sigstad, Ariel Camperi}
+\date{}
+
+\begin{document}
+    \maketitle
+    \hrule
+
+    \section*{How to Run}
+    To run the project, it is sufficient to run the python file \texttt{master.py}. There are several additional flags that can be added. To train the model, call \texttt{python master.py 1}, and this will train a model and save it to a \texttt{pickle} file. Then call \texttt{python master.py} and the program will test that model on the test data. We have also included some pre-existing models that we've trained with different SVM types. The file \texttt{linear.pkl} contains a model using instances of \texttt{LinearSVC()} (using one-vs-many classification), while the file \texttt{one\_vs\_one\_linear.pkl} contains a model using instances of \texttt{OneVsOneClassifier(LinearSVC())}. To test with either of these pre-trained models, simply rename the model to \texttt{models.pkl} and the run the program with no arguments. When training, the default will be to use (2,2) as the context for the target nodes, however custom left and right contexts can be specified by running \texttt{python master.py 1 l r} (where \texttt{l} and \texttt{r} are the left and right context lengths).
+
+    \section*{State of the Implementation}
+    The implementation works fully, from training data through accuracy evaluation on testing data. We tried several support vector machines from the \texttt{scikit-learn} package, in an attempt to match the accuracy metrics found in the paper. Using a one-vs-one classifier, we find the following values (with context (2,2)):
+    \begin{center}
+        \begin{tabular}{|c|c|c|}
+            \hline Dependency Accuracy & Root Accuracy & Complete Rate \\ \hline
+            0.89135 & 0.64363 & 0.22475 \\ \hline
+        \end{tabular}
+    \end{center}
+    Using a one-vs-many classifier, we find the following values (again with context (2,2)):
+    \begin{center}
+        \begin{tabular}{|c|c|c|}
+            \hline Dependency Accuracy & Root Accuracy & Complete Rate \\ \hline
+            0.88680 & 0.64280 & 0.22103 \\ \hline
+        \end{tabular}
+    \end{center}
+    Having determined that several other SVM options offered by the \texttt{scikit-learn} package did not work with this method, we settled on training and testing with the one-vs-one classifier using \texttt{OneVsOneClassifier(LinearSVC())}. We then tried different context lengths, and obtained the following results (the ($l$,$r$) number pairs correspond to context lengths on either side of the target nodes:
+    \begin{center}
+        \begin{tabular}{|l|cccc|cccc|}
+            \cline{2-9} \multicolumn{1}{c|}{} & (2,2) & (2,3) & (2,4) & (2,5) & (3,2) & (3,3) & (3,4) & (3,5) \\ \hline
+            Dep. Acc. & 0.891 &&&&&&& \\
+            Root Acc. & 0.644 &&&&&&& \\
+            Comp. Rate & 0.225 &&&&&&& \\ \hline
+        \end{tabular}
+    \end{center}
+
+    \section*{Statement of Work}
+    Our initial attempts at replication were implemented to various degrees of completion, so for the final implementation we worked off of Nate's and Henrik's versions, which had reasonable accuracy rates when tested on toy data. Nate's implementation was faster, however Henrik's implementation had all accuracy measurements implemented, so they worked together to port this functionality to Nate's code, which used a slightly different encoding for the parse trees. Lauren worked on splitting up the testing and training functionality for reusability, specifically using \texttt{pickle} to save trained models. Ariel worked on implementing section 4.2 of the paper, namely using multiple SVMs, based on the POS tag of the left target node in a given target pair (this allows for a greatly reduced running time). We then all worked on improving the accuracy by testing various SVM types. We also all contributed to training and testing different models and compiling them in the writeup.
+\end{document}
