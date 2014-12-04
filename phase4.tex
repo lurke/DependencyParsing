@@ -1,0 +1,79 @@
+\documentclass[12pt,fleqn]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{enumitem}
+
+\title{CS 187 - Dependency Parsing\\Phase 4: Final Paper Draft}
+\author{Lauren Urke, Nathaniel Herman, Henrik Sigstad, Ariel Camperi}
+\date{}
+
+\begin{document}
+    \maketitle
+    \hrule
+\begin{abstract}
+The abstract ...
+\end{abstract}
+\section{Introduction}
+\begin{itemize}
+\item Motivation
+\item What we did and why we think it is important
+\item Statement of key result
+\end{itemize}
+
+\section{Statement of the problem}
+\begin{itemize}
+\item Further discussion about why we care...
+\end{itemize}
+
+\section{Description of the method}
+
+\subsection{Description of SVMs}
+\subsection{Description of dependency parsing}
+\subsection{Description of code}
+
+\section{Results}
+\subsection{Description of data}
+\subsection{Results}
+
+    \begin{center}
+        \begin{tabular}{|c|c|c|}
+            \hline Dependency Accuracy & Root Accuracy & Complete Rate \\ \hline
+            0.89135 & 0.93675 & 0.32711 \\ \hline
+        \end{tabular}
+    \end{center}
+
+    \begin{center}
+        \begin{tabular}{|c|c|c|}
+            \hline Dependency Accuracy & Root Accuracy & Complete Rate \\ \hline
+            0.88680 & 0.93894 & 0.32285 \\ \hline
+        \end{tabular}
+    \end{center}
+
+
+    \begin{center}
+        \begin{tabular}{|l|cccc|cccc|}
+            \cline{2-9} \multicolumn{1}{c|}{} & (2,2) & (2,3) & (2,4) & (2,5) & (3,2) & (3,3) & (3,4) & (3,5) \\ \hline
+            Dep. Acc. & 0.891 & 0.890 & 0.890 & 0.889 & 0.887 & 0.887 & 0.887 & 0.887 \\
+            Root Acc. & 0.937 & 0.928 & 0.934 & 0.930 & 0.932 & 0.929 & 0.928 & 0.927 \\
+            Comp. Rate & 0.327 & 0.330 & 0.325 & 0.326 & 0.312 & 0.318 & 0.316 & 0.317 \\ \hline
+        \end{tabular}
+    \end{center}
+
+
+\section{Conclusion}
+\begin{itemize}
+\item Summarize how well we were able to replicate the paper
+\item Ideas for improving their method?
+\end{itemize}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
