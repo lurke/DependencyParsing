@@ -31,7 +31,57 @@ The abstract ...
 
 \section{Description of the method}
 \subsection{Description of data}
-To implement Dependency Parsing, we used the Penn Treebank Project Data. This is a data set containing sentences parsed into trees with part of speech tags. 
+To implement Dependency Parsing, we used the Penn Treebank Project Data. The treebank data contains sentences that have been parsed into a linguistic trees that also contain part-of-speech tagging. Parsed in this way, "Pieere Vinken, 61 years old, will join the board as a non executive director Nov. 29.", will look like this: 
+
+NEED TO FIGURE OUT HOW TO TAB THIS
+\begin{tabbing}
+( (S\\ 
+ 	 (NP-SBJ \\
+		(NP (NNP Pierre) (NNP Vinken) )\\
+		(, ,) \\
+		(ADJP\\ 
+			(NP (CD 61) (NNS years) )\\
+			(JJ old) )\\
+		(, ,) )\\
+	(VP (MD will) \\
+		(VP (VB join) \\
+			(NP (DT the) (NN board) )\\
+			(PP-CLR (IN as) \\
+				(NP (DT a) (JJ nonexecutive) (NN director) ))\\
+			(NP-TMP (NNP Nov.) (CD 29) )))\\
+	(. .) ))
+	\\
+\end{tabbing}
+
+This information is helpful, but could be improved. To conduct analysis on the dependencies, we wanted to be able to easily infer the relationship between two words. Therefore, we used a program from the Lund University Computer Science Department that converted the Penn Treebank parses into dependency parses. For each word in a sentence, a dependency parse indicates the parent word and the part of speech. For example, the same sentence now comes out as this:
+\\
+
+        \begin{tabular}{||ccccc|}
+            ID & Token & Part of Speech & Parent ID & Class \\ 
+            \hline
+            1 &Pierre & NNP & 2 & NAME \\
+            2 & Vinken & NNP & 8 & SBJ\\
+            3 & , & , & 2 & P\\
+            4 & 61 & CD & 5 & NMOD\\
+            5 & years & NNS & 6 & AMOD\\
+            6 & old & JJ & 2 & APPO\\
+            7 & , & , & 2 & P\\
+            8 & will & MD & 0 & ROOT\\
+            9 & join & VB & 8 & VC\\
+            10 & the & DT & 11 & NMOD\\
+            11 & board & NN & 9 & OBJ\\
+            12 & as & IN & 9 & ADV\\
+            13 & a & DT & 15 & NMOD\\
+            14 & nonexecutive & JJ & 15 & NMOD\\
+            15 & director & NN & 12 & PMOD\\
+            16 & Nov. & NNP & 9 & TMP\\
+            17 & 29 & CD & 16 & NMOD\\
+            18 & . & . & 8 & P\\
+            \hline
+        \end{tabular} \\
+
+
+This data is now much more helpful for determining whether there is a direct parental relationship between two words in a sentence.
 
 \subsection{Description of SVMs}
 \subsection{Description of dependency parsing}
