@@ -69,11 +69,28 @@ Dependency grammar is a way of analysis syntax in terms of dependency relations 
 \end{figure}
 
 \subsection{Description of Code}
+We construct these dependency trees in left-to-right word order of an input sentence
+by using three actions: Shift, Left, and Right. At any given time we consider 2 neighboring words
+of a sentence (starting with the first 2) and their relation to each other. A ``Right''
+operation makes a dependency relation where the left word becomes a child of 
+the right one. A ``Left'' operation makes a dependency relation where the right word
+becomes a child of the left one. Finally a ``Shift'' operation is used when 2 words
+do not have a direct dependency relation, in which case we move forward by one in our
+sentence (so if we were considering the ith and i+1th words, we now consider the i+1th
+and i+2th words of the sentence). 
+
+\begin{figure}
+\label{pseudocode}
+\caption{Pseudocode for Parsing Algorithm (from \cite{yamada2003statistical})}
+\center
+\includegraphics[scale=.75]{pseudocode.png}
+\end{figure}
+
 Our actual implementation uses the same basic parsing algorithm as that in 
-\cite{yamada2003statistical} (i.e. Figure 6 of the paper). Essentially, we look at
+\cite{yamada2003statistical} (see the pseudocode in \ref{pseudocode}). Essentially, we look at
 2 elements of our array (which is initially the list of words in a sentence)
-at a time, using the contextual features (like POS tags) to estimate
-the relation (Left, Right, or Shift) to use between the 2 elements. 
+at a time, using the contextual features (like part-of-speech tags) to estimate
+the relation (Left, Right, or Shift) to use between the 2 elements.
 
 Of course, the hard part of the implementation is not in writing the basic 
 parsing algorithm, but
