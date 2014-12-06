@@ -30,8 +30,72 @@ The abstract ...
 \end{itemize}
 
 \section{Description of the method}
-\subsection{Description of data}
-To implement Dependency Parsing, we used the Penn Treebank Project Data. The treebank data contains sentences that have been parsed into a linguistic trees that also contain part-of-speech tagging. Parsed in this way, "Pieere Vinken, 61 years old, will join the board as a non executive director Nov. 29.", will look like this: 
+
+\subsection{Description of SVMs}
+\subsection{Description of dependency parsing}
+\subsection{Description of code}
+Our actual implementation uses the same basic parsing algorithm as that in 
+\cite{original-paper} (i.e. Figure 6 of the paper). Essentially, we look at
+2 elements of our array (which is initially the list of words in a sentence)
+at a time, using the contextual features (like POS tags) to estimate
+the relation (Left, Right, or Shift) to use between the 2 elements. 
+
+Of course, the hard part of the implementation is not in writing the basic 
+parsing algorithm, but
+rather in writing the get\_contextual\_features(), estimate\_action(),
+and construction() functions
+to work correctly for both the training phase and prediction phase (as well
+as generating the SVM(s) themselves and saving them to disk).
+
+Our array (the ``T'' variable in \cite{original-paper}) 
+starts as an array of words, which are really
+dictionaries describing a given word's features like its POS. As we construct
+child-parent relations, the array elements become trees themselves representing
+these child-parent relations. To make an element the child of a tree, we append 
+the element to the tree's list of children.
+
+get\_contextual\_features() works the same whether we're training or predicting,
+and simply creates a dictionary which maps various information tuples 
+(including information about a tree's children, and contextual information) to
+1's. For instance we might have a dictionary (in Python) that looks something 
+like:
+\begin{verbatim}
+{(0, 'pos', 'NP'): 1, (0, 'lex', 'resort'): 1,
+  (0, 'ch-R-pos': 'JJ'): 1, (0, 'ch-R-lex': 'last'): 1}
+\end{verbatim}
+This specific format is to make it easily convertible to a matrix of 1's and 
+0's for our SVM.
+
+For the training phase, estimate\_action() works as follows: we look to see if
+the two nodes in consideration have an actual parent-child relation to each 
+other (in the training dataset). If so, we choose Left or Right as our action 
+to construct this parent-child relation. However, once a node is made the 
+child of another node, we can no longer add any children to it. Thus, we only
+pick Left or Right if the node which will become child has already had all of
+its own children added to it. In all other cases we pick Shift as our action.
+
+The training model also keeps track of a list of its decisions. We store both
+what action it picks, as well as what the contextual features were for that
+particular action choice. Thus, once the training model has been run on the
+data, we can construct an SVM which associates sets of contextual features 
+with actions, and store it to disk (so we don't have to retrain each run
+through).
+
+Then we can run our predictor model on test data, where estimate\_action()
+now predicts what action to take using our SVM with the contextual
+features at the current location in the sentence.
+
+In our full implementation, we actually use multiple SVMs, one per POS tag.
+Thus to predict the action for the ith element in our array, we use the SVM
+associated with whatever part of speech the ith word in the array is. This
+makes it more tractable to run our data with very large datasets (the Penn
+treebank dataset is fairly large) so we don't end up with one gigantic SVM.
+
+
+\section{Description of data}
+To implement Dependency Parsing, we used the Penn Treebank Project Data. The treebank data contains sentences that have been parsed into a linguistic trees that also contain part-of-speech tagging. \\
+
+Parsed in this way, "Pieere Vinken, 61 years old, will join the board as a non executive director Nov. 29.", will look like this: 
 
 NEED TO FIGURE OUT HOW TO TAB THIS
 \begin{tabbing}
@@ -81,50 +145,62 @@ This information is helpful, but could be improved. To conduct analysis on the d
         \end{tabular} \\
 
 
-This data is now much more helpful for determining whether there is a direct parental relationship between two words in a sentence.
-
-\subsection{Description of SVMs}
-\subsection{Description of dependency parsing}
-\subsection{Description of code}
-Our actual implementation uses the same basic parsing algorithm as that in 
-\cite{original}
+This data is now much more helpful for determining whether there is a direct parental relationship between two words in a sentence. The Penn Treebank contains 24 sections. We used sections 02-22 for training and section 23 for testing. Section 23 contains 2,416 sentences, which includes 56,684 words (49,892 without punctuation).
 
 \section{Results}
 \subsection{Results}
+We used three measurements to evaluate the effectiveness of this method.\\
 
-    \begin{center}
+\noindent \\
+Dependency Accuracy = $\frac{\text{number of correct parents}}{\text{total number of parents}}$\\
+Root Accuracy = $\frac{\text{number of correct root nodes}}{\text{total number of sentences}}$\\
+Complete Rate  = $\frac{\text{number of complete parsed sentences}}{\text{total number of sentences}}$\\
+
+\noindent \\
+Using a default context of (2,2), we evaluated two different SVC methods. With a One vs One Linear SVC method, we obtained the following results:\\
         \begin{tabular}{|c|c|c|}
             \hline Dependency Accuracy & Root Accuracy & Complete Rate \\ \hline
             0.89135 & 0.93675 & 0.32711 \\ \hline
-        \end{tabular}
-    \end{center}
+        \end{tabular}\\
 
-    \begin{center}
-        \begin{tabular}{|c|c|c|}
+\noindent \\
+Using a One vs Many Linear SVC, we obtained the following, slightly worse results: \\
+       \begin{tabular}{|c|c|c|}
             \hline Dependency Accuracy & Root Accuracy & Complete Rate \\ \hline
             0.88680 & 0.93894 & 0.32285 \\ \hline
-        \end{tabular}
-    \end{center}
-
-
-    \begin{center}
-        \begin{tabular}{|l|cccc|cccc|}
+        \end{tabular} \\
+        
+\noindent \\        
+The Sci-kit Learn offered several other SVM options, but after testing each of them with a set context length, we determined
+that none of them improved our results. We then empirically determined the optimal context length for the One vs One classifier. The Context determines how many words to the left and right of the target nodes are considered. \\
+\begin{tabular}{|l|cccc|cccc|}
             \cline{2-9} \multicolumn{1}{c|}{} & (2,2) & (2,3) & (2,4) & (2,5) & (3,2) & (3,3) & (3,4) & (3,5) \\ \hline
             Dep. Acc. & 0.891 & 0.890 & 0.890 & 0.889 & 0.887 & 0.887 & 0.887 & 0.887 \\
             Root Acc. & 0.937 & 0.928 & 0.934 & 0.930 & 0.932 & 0.929 & 0.928 & 0.927 \\
             Comp. Rate & 0.327 & 0.330 & 0.325 & 0.326 & 0.312 & 0.318 & 0.316 & 0.317 \\ \hline
-        \end{tabular}
-    \end{center}
+\end{tabular}\\
 
+\noindent \\
+We determined that the One vs One Linear SVC gave the best results when used with a context of 2 on either side of the target nodes. 
 
 \section{Conclusion}
-\begin{itemize}
-\item Summarize how well we were able to replicate the paper
-\item Ideas for improving their method?
-\end{itemize}
+
+\noindent \\
+Yamada and Matsumoto's implementation of dependency parsing used a One vs One classifier to parse the sentences. They also determined that a context of 2 on either side of the target nodes was best. Their implementation gave only slightly better results:       \\
+ \begin{tabular}{|c|c|c|c|}
+            \hline & Dependency Accuracy & Root Accuracy & Complete Rate \\ \hline
+            Yamada and Matsumoto & 0.900 & 0.896 & 0.379 \\ \hline
+            Our results & 0.89135 & 0.93675 & 0.32711 \\ \hline
+
+        \end{tabular}\\
+
+Our implementation successfully modeled Yamada and Matsumoto's dependency parsing algorithm with fairly similar results. 
+In theory, a One vs Many classifier should work better than a three-part One vs One classifier. Possible next steps to improve results include investigating other One vs Many classifiers and attempting to pinpoint why this classifier did not  improve parsing accuracy. \\
+        
+        
 
 \begin{thebibliography}{1}
-\bibitem{original}$\textsc{Yamada, H., and Matsumoto, Y.}$ Statistical Dependency Analysis With Support Vector Machines. In \emph{Proceedings of IWPT}, 2003.
+\bibitem{original-paper}$\textsc{Yamada, H., and Matsumoto, Y.}$ Statistical Dependency Analysis With Support Vector Machines. In \emph{Proceedings of IWPT}, 2003.
 \end{thebibliography}
 \end{document}
 
