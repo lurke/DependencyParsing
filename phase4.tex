@@ -28,14 +28,24 @@ The paper we were assigned \cite{yamada2003statistical} proposes that texts in s
 
 The method we present in this paper uses Support Vector Machines (described more in detail in further sections) to train a model from annotated Penn treebank data, using a variety of local features for target word pairings. This model is then applied in a bottom-up manner to ``flat'' sentences (i.e. un-annotated with structure) and used to generate a dependency tree. The motivation for this is to see whether a model trained using only word-word dependency data in a given domain is good enough to predict word-word dependencies on an unknown text in that domain.
 
-The paper is organized as follows. First we will describe the method we used in more detail, including an explanation of how we used Support Vector Machines and why they were relevant to the problem, and a explanation of the attached source code. Next we describe the data that was used to train and test this method. Finally, our results are presented and we draw conclusions from them.
+The paper is organized as follows. First we will describe the method we used in more detail, including an explanation Support Vector Machines and dependency grammars, and an explanation of the attached source code. Next we describe the data that was used to train and test this method. Finally, our results are presented and we draw conclusions from them.
 
 \section{Description of the method}
-We give a short overview of SVMs based on \cite{hastie2009elements}.
+
+\subsection{Dependency grammar}
+The most common way of analyzing syntax is by the use of phrase structure or constituency grammar. Sentences are in these types of grammar analyzed in terms of constituencies such as noun phrases and verb phrases. However, this is not the only possibility. In particular, dependency grammars are an attractive alternative as they are typically much simpler. Dependency grammar is a way of analyzing syntax in terms of dependency relations between words. Typically the root node is the main verb in the sentence and dependencies are built around this node based on different rules. As seen in Figure \ref{dep} dependency grammars are much simpler than constituency grammars. There exists many parsers for constituency types of grammar, whereas parsing of dependency grammars is much less explored. The contribution of \cite{yamada2003statistical} upon which this text is based is to provide a dependency parser which perform up to par with the constituency parsers.
+\begin{figure}
+\center
+\label{dep}
+\caption{Constituency versus dependency grammar}
+\includegraphics[scale=1.5]{dep.eps}
+\end{figure}
+
 \subsection{Support Vector Machines}
 
+The Support Vector Machine (SVM) is a binary classifier. What makes SVMs great in our context as they are able to use a very high dimensional feature space (e.g. all neighboring words and POS tags) relatively cheaply. It also allows to efficiently model interdependencies via the ``kernel trick''.
 
-The Support Vector Machine (SVM) is a binary classifier. Assume that the training data consists of $(\mathbf x_i,y_i)$ where $\mathbf x_i \in \mathbb R^p$ are the features and $y_i \in \{-1,1 \}$ for $i \in \{ 1, ..., N \}$. The SVM finds a hyperplane in the feature space which separates the training data according to $y_i$ with the greatest possible margin $M$ allowing for some slack. Specifically it solves the optimization problem
+We here give a short overview of SVMs based on \cite{hastie2009elements}. Assume that the training data consists of $(\mathbf x_i,y_i)$ where $\mathbf x_i \in \mathbb R^p$ are the features and $y_i \in \{-1,1 \}$ for $i \in \{ 1, ..., N \}$. The SVM finds a hyperplane in the feature space which separates the training data according to $y_i$ with the greatest possible margin $M$ allowing for some slack. Specifically it solves the optimization problem
 \[ \max_{\beta,\beta_0} M \]
 \[ \textrm{ subject to } y_i(x_i^T \beta + \beta_0) \geq M(1- \xi_i) \]
 \[ \xi_i \geq 0,\; \sum \xi_i \leq C \textrm{ and } \| \beta \| = 1 \]
@@ -48,25 +58,10 @@ where the maximum total amount of slack $C$ is chosen by tuning or by any other 
 \includegraphics[scale=0.5]{svm.eps}
 \end{figure}
 
-In its most basic form the SVM only considers linear hyperplanes in the feature space. However, it is straight forward to introduce non-linearities by transformations of the feature space and applying the basic SVM on this transformed space. Furthermore, it turns out that the classifier depends only on inner products between pairs of observations in the transformed space. The inner product in the transformed space is called the \emph{kernel function}. Instead of specifying the transformation itself it is therefore customary to only state the kernel function. A common kernel is the polynomial kernel
+In its most basic form the SVM only considers linear hyperplanes in the feature space. However, it is straight forward to introduce non-linearities by transforming the feature space and applying the basic SVM on this transformed space. Furthermore, it turns out that such a classifier depends only on inner products between pairs of observations in the transformed space. The inner product in the transformed space is called the \emph{kernel function}. Instead of specifying the transformation itself it is therefore customary to only state the kernel function. A common kernel is the \emph{polynomial kernel}
 \[ K(x,x')=(1+ <x,x'> ) ^d \]
 
-This is the kernel employed by \cite{yamada2003statistical}.
-
-The SVM can be extended to multi-class classification problems in several ways. One possibility is to train an SVM for each pairs of classes, and then let final classifier be the one that dominates the most. We will refer to this as \emph{one-vs-one} SVM. Another possibility is to train binary SVMs of each class against the rest of the classes, and choose the classifier which gives the highest margin. We refer to this as the \emph{one-vs-the rest} SVM. A third, alternative which is claimed to have a better theoretical foundation, but is more computationally expensive is the Crammer-Singer multiclass SVM \cite{crammer2002algorithmic}.
-
-SVMs are great in our context as they are able to use a very high dimensional feature space (e.g. all neighboring words and POS tags) even allowing for interdependencies relatively cheaply.
-
-
-\subsection{Description of dependency parsing}
-
-Dependency grammar is a way of analysis syntax in terms of dependency relations between words, as opposed to phrase structure grammar which analyses sentences in terms of constituencies (e.g. noun phrases and verb phrases). Typically the root node is the main verb in the sentence and dependencies are built around this node based on different rules. As seen in Figure \ref{dep} dependency grammars are much simpler than constituency grammars.
-\begin{figure}
-\center
-\label{dep}
-\caption{Constituency versus dependency grammar}
-\includegraphics[scale=1.5]{dep.eps}
-\end{figure}
+The SVM can be extended to multi-class classification problems in several ways. One possibility is to train an SVM for each pairs of classes, and then let final classifier be the one that dominates the most. We will refer to this as \emph{One vs One} SVM. Another possibility is to train binary SVMs of each class against the rest of the classes, and choose the classifier which gives the highest margin. We refer to this as the \emph{One vs The Rest} SVM. A third, alternative which is claimed to have a better theoretical foundation, but is more computationally expensive is the Crammer-Singer multiclass SVM \cite{crammer2002algorithmic}.
 
 \subsection{Description of Code}
 We construct these dependency trees in left-to-right word order of an input sentence
@@ -147,10 +142,11 @@ associated with whatever part of speech the ith word in the array is. This
 makes it more tractable to run our data with very large datasets (the Penn
 treebank dataset is fairly large) so we don't end up with one gigantic SVM.
 
+We were not able to get the polynomial kernel versions of the \texttt{scikit-learn} SVC to work in our setting. Thus all of our results will be obtained by using a normal linear SVC.
 \section{Description of Data}
-To implement Dependency Parsing, we used the Penn Treebank Project Data. The treebank data contains sentences that have been parsed into a linguistic trees that also contain part-of-speech tagging.
+To implement Dependency Parsing, we used the Penn Treebank Project Data. The treebank data contains sentences that have been parsed into a linguistic constituency tree that also contain part-of-speech tagging.
 
-Parsed in this way, "Pieere Vinken, 61 years old, will join the board as a non executive director Nov. 29.", will look like this: 
+For instance the sentence ``Pieere Vinken, 61 years old, will join the board as a non executive director Nov. 29.'', will look like this: 
 \begin{verbatim}
 ( (S
          (NP-SBJ 
@@ -166,35 +162,37 @@ Parsed in this way, "Pieere Vinken, 61 years old, will join the board as a non e
                        (PP-CLR (IN as) 
                              (NP (DT a) (JJ nonexecutive) (NN director) ))
                        (NP-TMP (NNP Nov.) (CD 29) )))
-         (. .) ))\end{verbatim}
+         (. .) ))
+\end{verbatim}
 
-This information is helpful, but could be improved. To conduct analysis on the dependencies, we wanted to be able to easily infer the relationship between two words. Therefore, we used a program from the Lund University Computer Science Department that converted the Penn Treebank parses into dependency parses. For each word in a sentence, a dependency parse indicates the parent word and the part of speech. For example, the same sentence now comes out as in Table \ref{dependency_parse}.
+We used a program from the Lund University Computer Science Department to convert the Penn Treebank constituency parses into dependency parses. For example, the same sentence now comes out as in Table \ref{dependency_parse}.
+%This information is helpful, but could be improved. To conduct analysis on the dependencies, we wanted to be able to easily infer the relationship between two words. Therefore, we used a program from the Lund University Computer Science Department that converted the Penn Treebank parses into dependency parses. For each word in a sentence, a dependency parse indicates the parent word and the part of speech. 
 
 \begin{table}
 \label{dependency_parse}
 \caption{Dependency parse}
         \begin{tabular}{ccccc}
 \hline \hline
-            ID & Token & Part of Speech & Parent ID & Class \\ 
+            ID & Token & Part of Speech & Parent ID \\ 
             \hline
-            1 &Pierre & NNP & 2 & NAME \\
-            2 & Vinken & NNP & 8 & SBJ\\
-            3 & , & , & 2 & P\\
-            4 & 61 & CD & 5 & NMOD\\
-            5 & years & NNS & 6 & AMOD\\
-            6 & old & JJ & 2 & APPO\\
-            7 & , & , & 2 & P\\
-            8 & will & MD & 0 & ROOT\\
-            9 & join & VB & 8 & VC\\
-            10 & the & DT & 11 & NMOD\\
-            11 & board & NN & 9 & OBJ\\
-            12 & as & IN & 9 & ADV\\
-            13 & a & DT & 15 & NMOD\\
-            14 & nonexecutive & JJ & 15 & NMOD\\
-            15 & director & NN & 12 & PMOD\\
-            16 & Nov. & NNP & 9 & TMP\\
-            17 & 29 & CD & 16 & NMOD\\
-            18 & . & . & 8 & P\\
+            1 &Pierre & NNP & 2 \\
+            2 & Vinken & NNP & 8\\
+            3 & , & , & 2 \\
+            4 & 61 & CD & 5 \\
+            5 & years & NNS & 6 \\
+            6 & old & JJ & 2 \\
+            7 & , & , & 2 \\
+            8 & will & MD & 0 \\
+            9 & join & VB & 8 \\
+            10 & the & DT & 11 \\
+            11 & board & NN & 9 \\
+            12 & as & IN & 9 \\
+            13 & a & DT & 15  \\
+            14 & nonexecutive & JJ & 15\\
+            15 & director & NN & 12 \\
+            16 & Nov. & NNP & 9 \\
+            17 & 29 & CD & 16 \\
+            18 & . & . & 8 \\
             \hline
         \end{tabular}
 \end{table}
@@ -202,24 +200,23 @@ This information is helpful, but could be improved. To conduct analysis on the d
 This data now directly tells us the parental relationships between two words in a sentence. The Penn Treebank contains 24 sections. We used sections 02-22 for training and section 23 for testing. Section 23 contains 2,416 sentences, which includes 56,684 words (49,892 without punctuation).
 
 \section{Results}
-We used three measurements to evaluate the effectiveness of this method.
+ We used three measurements to evaluate the effectiveness of this method.
 \begin{eqnarray*}
     \text{Dependency Accuracy} &=& \dfrac{\text{number of correct parents}}{\text{total number of parents}}\\
     \text{Root Accuracy} &=& \dfrac{\text{number of correct root nodes}}{\text{total number of sentences}}\\
     \text{Complete Rate} &=& \dfrac{\text{number of complete parsed sentences}}{\text{total number of sentences}}
 \end{eqnarray*}
-Using a default context of (2,2), we evaluated two different linear multiclass SVCs. The results for the One vs One and a One vs Many respectively is presented in Table \ref{key_results}.
+Using a default context of (2,2), we evaluated two different linear multiclass SVCs. The results for the One vs One and a One vs The Rest respectively is presented in Table \ref{key_results}.
 \begin{table}
 \label{key_results}
 \caption{Results for linear multiclass SVCs using a context length of (2,2)}
         \begin{tabular}{c|ccc}
             \hline \hline Dependency Accuracy & Root Accuracy & Complete Rate \\ \hline
-            One vs one SVC & 0.89135 & 0.93675 & 0.32711 \\
-            One vs many SVC & 0.88680 & 0.93894 & 0.32285 \\ \hline
+            One vs One SVC & 0.89135 & 0.93675 & 0.32711 \\
+            One vs The Rest SVC & 0.88680 & 0.93894 & 0.32285 \\ \hline
         \end{tabular}
 \end{table}
-The Sci-kit Learn offered several other SVM options, but after testing each of them with a set context length, we determined
-that none of them improved our results. We then empirically determined the optimal context length for the One vs One classifier. The Context determines how many words to the left and right of the target nodes are considered.
+As we were not able to employ polynomial kernel SVCs we were not able to replicate the results in \cite{yamada2003statistical} with polynomial kernels. However, we tested different context lengths for the One vs One classifier. The Context determines how many words to the left and right of the target nodes are considered.
 \begin{table}
 \caption{Varying the context length}
 \begin{tabular}{l|cccc|cccc}
@@ -234,7 +231,7 @@ that none of them improved our results. We then empirically determined the optim
 We determined that the One vs One Linear SVC gave the best results when used with a context of 2 on either side of the target nodes. 
 
 \section{Conclusion}
-Yamada and Matsumoto's implementation of dependency parsing used a One vs One classifier to parse the sentences. They tested different kernel degrees, and ended up with a quadratic kernel. They determined that a context of 2 on the left and 4 on the right was best (for dependency accuracy). This is slightly different from our results, however the differences here are quite small, with ours getting 89.0% accuracy for (2,4) versus 89.1% accuracy for (2,2) and their results getting 90.3% for (2,4) and 90.0% for (2,2). Their quadratic implementation gave only slightly better results than our linear implementation, while their linear implementation did worse than ours:       \\
+Yamada and Matsumoto's implementation of dependency parsing used a One vs One classifier to parse the sentences. They tested different kernel degrees, and ended up with a quadratic kernel. They determined that a context of 2 on the left and 4 on the right was best (for dependency accuracy). This is slightly different from our results, however the differences here are quite small, with ours getting 89.0\% accuracy for (2,4) versus 89.1\% accuracy for (2,2) and their results getting 90.3\% for (2,4) and 90.0\% for (2,2). Their quadratic kernel implementation gave only slightly better results than our linear implementation, while their linear implementation did worse than ours:       \\
 \begin{table}
 \caption{Comparison of results}
  \begin{tabular}{cccc}
