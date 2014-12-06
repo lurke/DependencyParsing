@@ -22,11 +22,11 @@
     \maketitle
 
 \section{Introduction}
-The paper we were assigned proposes that texts in specialized domains such as medical or legal documents are more amenable to word-word dependency analysis than to phrase structure analysis. This is because generating accurate phrase structure parses in these domains requires training models on annotated phrase structure parses of corpora in the relevant domain. This is hard for experts in the relevant domains to do, as this it necessitates rather deep linguistic knowledge. Therefore it is much more realistic to have such domain-experts annotate corpora with word-word dependencies, which require only superficial linguistic knowledge.
+The paper we were assigned \cite{original-paper} proposes that texts in specialized domains such as medical or legal documents are more amenable to word-word dependency analysis than to phrase structure analysis. This is because generating accurate phrase structure parses in these domains requires training models on annotated phrase structure parses of corpora in the relevant domain. This is hard for experts in the relevant domains to do, as it necessitates rather deep linguistic knowledge. Therefore it is much more realistic to have such domain-experts annotate corpora with word-word dependencies, which require only superficial linguistic knowledge.
 
 The method we present in this paper uses Support Vector Machines (described more in detail in further sections) to train a model from annotated Penn treebank data, using a variety of local features for target word pairings. This model is then applied in a bottom-up manner to ``flat'' sentences (i.e. un-annotated with structure) and used to generate a dependency tree. The motivation for this is to see whether a model trained using only word-word dependency data in a given domain is good enough to predict word-word dependencies on an unknown text in that domain.
 
-The paper is organized as follows. First we will describe the method we used in more detail, including an explanation of how we used Support Vector Machines and why they were relevant to the problem, and a explanation of the attached source code. Next we desribe the data that was used to train and test this method. Finally, our results are presented and we draw conclusions from them.
+The paper is organized as follows. First we will describe the method we used in more detail, including an explanation of how we used Support Vector Machines and why they were relevant to the problem, and a explanation of the attached source code. Next we describe the data that was used to train and test this method. Finally, our results are presented and we draw conclusions from them.
 
 \section{Description of the Method}
 
@@ -139,7 +139,7 @@ This information is helpful, but could be improved. To conduct analysis on the d
         \end{tabular} \\
 
 
-This data is now much more helpful for determining whether there is a direct parental relationship between two words in a sentence. The Penn Treebank contains 24 sections. We used sections 02-22 for training and section 23 for testing. Section 23 contains 2,416 sentences, which includes 56,684 words (49,892 without punctuation).
+This data now directly tells us the parental relationships between two words in a sentence. The Penn Treebank contains 24 sections. We used sections 02-22 for training and section 23 for testing. Section 23 contains 2,416 sentences, which includes 56,684 words (49,892 without punctuation).
 
 \section{Results}
 We used three measurements to evaluate the effectiveness of this method.\\
@@ -179,7 +179,7 @@ We determined that the One vs One Linear SVC gave the best results when used wit
 \section{Conclusion}
 
 \noindent \\
-Yamada and Matsumoto's implementation of dependency parsing used a One vs One classifier to parse the sentences. They tested different kernel degrees, and ended up with a quadratic kernel. They also determined that a context of 2 on either side of the target nodes was best. Their quadratic implementation gave only slightly better results than our linear implementation, while their linear implementation did worse than ours:       \\
+Yamada and Matsumoto's implementation of dependency parsing used a One vs One classifier to parse the sentences. They tested different kernel degrees, and ended up with a quadratic kernel. They determined that a context of 2 on the left and 4 on the right was best (for dependency accuracy). This is slightly different from our results, however the differences here are quite small, with ours getting 89.0% accuracy for (2,4) versus 89.1% accuracy for (2,2) and their results getting 90.3% for (2,4) and 90.0% for (2,2). Their quadratic implementation gave only slightly better results than our linear implementation, while their linear implementation did worse than ours:       \\
  \begin{tabular}{|c|c|c|c|}
             \hline & Dependency Accuracy & Root Accuracy & Complete Rate \\ \hline
             Y and M Quadratic & 0.900 & 0.896 & 0.379 \\ \hline
