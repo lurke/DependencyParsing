@@ -1,0 +1,20 @@
+\begin{thebibliography}{1}
+
+\bibitem{crammer2002algorithmic}
+Koby Crammer and Yoram Singer.
+\newblock On the algorithmic implementation of multiclass kernel-based vector
+  machines.
+\newblock {\em The Journal of Machine Learning Research}, 2:265--292, 2002.
+
+\bibitem{hastie2009elements}
+Trevor Hastie, Robert Tibshirani, Jerome Friedman, T~Hastie, J~Friedman, and
+  R~Tibshirani.
+\newblock {\em The elements of statistical learning}, volume~2.
+\newblock Springer, 2009.
+
+\bibitem{yamada2003statistical}
+Hiroyasu Yamada and Yuji Matsumoto.
+\newblock Statistical dependency analysis with support vector machines.
+\newblock In {\em Proceedings of IWPT}, volume~3, 2003.
+
+\end{thebibliography}
