@@ -99,9 +99,9 @@ and construction() functions
 to work correctly for both the training phase and prediction phase (as well
 as generating the SVM(s) themselves and saving them to disk).
 
-Our array (the ``T'' variable in \cite{yamada2003statistical}) 
+Our array (the ``T'' variable in \ref{pseudocode}) 
 starts as an array of words, which are really
-dictionaries describing a given word's features like its POS. As we construct
+dictionaries describing a given word's features like its part-of-speech. As we construct
 child-parent relations, the array elements become trees themselves representing
 these child-parent relations. To make an element the child of a tree, we append 
 the element to the tree's list of children.
@@ -113,9 +113,13 @@ and simply creates a dictionary which maps various information tuples
 like:
 \begin{verbatim}
 {(0, 'pos', 'NP'): 1, (0, 'lex', 'resort'): 1,
-  (0, 'ch-R-pos': 'JJ'): 1, (0, 'ch-R-lex': 'last'): 1}
+  (0, 'ch-R-pos': 'JJ'): 1, (0, 'ch-R-lex': 'last'): 1, (1, 'lex', 'who'): 1
+  (1, 'pos', 'WP'): 1, ...}
 \end{verbatim}
-This specific format is to make it easily convertible to a matrix of 1's and 
+These features would mean that the first word we're considering is ``resort'',
+which has part-of-speech ``NP'', and a right child ``last'' with POS ``JJ''. And the
+second word we're considering is ``who'' with part-of-speech ``WP''. This specific format
+with tuples mapping to 1's is to make it easily convertible to a matrix of 1's and 
 0's for our SVM.
 
 For the training phase, estimate\_action() works as follows: we look to see if
