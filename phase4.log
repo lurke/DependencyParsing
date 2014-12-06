@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  5 DEC 2014 20:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  5 DEC 2014 20:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -527,7 +527,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 94--95
 
  []
 
-
+[3]
 Underfull \hbox (badness 10000) in paragraph at lines 114--116
 
  []
@@ -538,9 +538,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 117--140
  []
 
 
-Underfull \vbox (badness 7613) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [3]
+ [4]
 Underfull \hbox (badness 10000) in paragraph at lines 145--146
 
  []
@@ -550,15 +550,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 147--151
 
  []
 
-
+[5]
 Underfull \hbox (badness 10000) in paragraph at lines 152--158
 
  []
 
 
-Underfull \vbox (badness 2529) has occurred while \output is active []
-
- [4]
 Underfull \hbox (badness 10000) in paragraph at lines 159--165
 
  []
@@ -574,34 +571,37 @@ Underfull \hbox (badness 10000) in paragraph at lines 181--190
  []
 
 
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [6]
 Underfull \hbox (badness 10000) in paragraph at lines 191--192
 
  []
 
-[5] [6] (./phase4.aux) ) 
+[7] (./phase4.aux) ) 
 Here is how much of TeX's memory you used:
  4077 strings out of 493117
  52887 string characters out of 6135433
- 126435 words of memory out of 5000000
+ 125435 words of memory out of 5000000
  7302 multiletter control sequences out of 15000+600000
  19815 words of font info for 54 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 37i,7n,32p,654b,207s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/cm-
-super/cm-super-t1.enc}</usr/local/texlive/2014/texmf-dist/fonts/type1/public/cm
--super/sfbx1200.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/cm-s
-uper/sfcc1000.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/cm-sup
-er/sfcc1200.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/cm-super
-/sfrm0800.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/cm-super/s
-frm0900.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/cm-super/sfr
-m1000.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/cm-super/sfrm1
-200.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/cm-super/sfti100
-0.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/cm-super/sftt1200.
-pfb>
-Output written on phase4.pdf (6 pages, 179019 bytes).
+ 37i,7n,32p,654b,325s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/cm-supe
+r/cm-super-t1.enc}</usr/local/texlive/2014/texmf-dist/fonts/type1/public/cm-sup
+er/sfbx1200.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/cm-super
+/sfcc1000.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/cm-super/s
+fcc1200.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/cm-super/sfr
+m0800.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/cm-super/sfrm0
+900.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/cm-super/sfrm100
+0.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/cm-super/sfrm1200.
+pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/cm-super/sfti1000.pf
+b></usr/local/texlive/2014/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
+
+Output written on phase4.pdf (7 pages, 179607 bytes).
 PDF statistics:
- 60 PDF objects out of 1000 (max. 8388607)
- 42 compressed objects within 1 object stream
+ 65 PDF objects out of 1000 (max. 8388607)
+ 46 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
