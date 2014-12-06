@@ -1,4 +1,4 @@
-\documentclass[12pt,fleqn]{article}
+\documentclass[12pt,fleqn]{amsart}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -6,41 +6,38 @@
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{graphicx}
 \usepackage{enumitem}
+\usepackage{setspace}
+
+\onehalfspacing
 
 \title{CS 187 - Dependency Parsing\\Phase 4: Final Paper Draft}
 \author{Lauren Urke, Nathaniel Herman, Henrik Sigstad, Ariel Camperi}
 \date{}
 
 \begin{document}
+    \begin{abstract}
+    Utterance structure parsing is a very important area of computational linguistics, as it is a precursor to meaning analyses of utterances. Dependency parsing is one such method which parses an utterance into a structure based on inter-word dependency relationships. This paper presents a method for using Support Vector Machines to deterministically generate this dependency tree.
+    \end{abstract}
+
     \maketitle
-    \hrule
-\begin{abstract}
-The abstract ...
-\end{abstract}
+
 \section{Introduction}
-\begin{itemize}
-\item Motivation
-\item What we did and why we think it is important
-\item Statement of key result
-\end{itemize}
+The paper we were assigned proposes that texts in specialized domains such as medical or legal documents are more amenable to word-word dependency analysis than to phrase structure analysis. This is because generating accurate phrase structure parses in these domains requires training models on annotated phrase structure parses of corpora in the relevant domain. This is hard for experts in the relevant domains to do, as this it necessitates rather deep linguistic knowledge. Therefore it is much more realistic to have such domain-experts annotate corpora with word-word dependencies, which require only superficial linguistic knowledge.
 
-\section{Statement of the problem}
-\begin{itemize}
-\item Further discussion about why we care...
-\end{itemize}
+The method we present in this paper uses Support Vector Machines (described more in detail in further sections) to train a model from annotated Penn treebank data, using a variety of local features for target word pairings. This model is then applied in a bottom-up manner to ``flat'' sentences (i.e. un-annotated with structure) and used to generate a dependency tree. The motivation for this is to see whether a model trained using only word-word dependency data in a given domain is good enough to predict word-word dependencies on an unknown text in that domain.
 
-\section{Description of the method}
+The paper is organized as follows. First we will describe the method we used in more detail, including an explanation of how we used Support Vector Machines and why they were relevant to the problem, and a explanation of the attached source code. Next we desribe the data that was used to train and test this method. Finally, our results are presented and we draw conclusions from them.
+
+\section{Description of the Method}
 
 \subsection{Description of SVMs}
-\subsection{Description of dependency parsing}
-\subsection{Description of code}
+\subsection{Description of Dependency Parsing}
+\subsection{Description of Code}
 
-\section{Description of data}
+\section{Description of Data}
 To implement Dependency Parsing, we used the Penn Treebank Project Data. The treebank data contains sentences that have been parsed into a linguistic trees that also contain part-of-speech tagging. \\
 
 Parsed in this way, "Pieere Vinken, 61 years old, will join the board as a non executive director Nov. 29.", will look like this: 
-
-NEED TO FIGURE OUT HOW TO TAB THIS
 \begin{verbatim}
 ( (S
          (NP-SBJ 
@@ -56,14 +53,12 @@ NEED TO FIGURE OUT HOW TO TAB THIS
                        (PP-CLR (IN as) 
                              (NP (DT a) (JJ nonexecutive) (NN director) ))
                        (NP-TMP (NNP Nov.) (CD 29) )))
-         (. .) ))
-	
-\end{verbatim}
+         (. .) ))\end{verbatim}
 
 This information is helpful, but could be improved. To conduct analysis on the dependencies, we wanted to be able to easily infer the relationship between two words. Therefore, we used a program from the Lund University Computer Science Department that converted the Penn Treebank parses into dependency parses. For each word in a sentence, a dependency parse indicates the parent word and the part of speech. For example, the same sentence now comes out as this:
 \\
 
-        \begin{tabular}{||ccccc|}
+        \begin{tabular}{|ccccc|}
             ID & Token & Part of Speech & Parent ID & Class \\ 
             \hline
             1 &Pierre & NNP & 2 & NAME \\
@@ -92,7 +87,6 @@ This data is now much more helpful for determining whether there is a direct par
 
 
 \section{Results}
-\subsection{Results}
 We used three measurements to evaluate the effectiveness of this method.\\
 
 \noindent \\
