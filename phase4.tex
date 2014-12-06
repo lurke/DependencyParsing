@@ -147,10 +147,13 @@ Parsed in this way, "Pieere Vinken, 61 years old, will join the board as a non e
                        (NP-TMP (NNP Nov.) (CD 29) )))
          (. .) ))\end{verbatim}
 
-This information is helpful, but could be improved. To conduct analysis on the dependencies, we wanted to be able to easily infer the relationship between two words. Therefore, we used a program from the Lund University Computer Science Department that converted the Penn Treebank parses into dependency parses. For each word in a sentence, a dependency parse indicates the parent word and the part of speech. For example, the same sentence now comes out as this:
-\\
+This information is helpful, but could be improved. To conduct analysis on the dependencies, we wanted to be able to easily infer the relationship between two words. Therefore, we used a program from the Lund University Computer Science Department that converted the Penn Treebank parses into dependency parses. For each word in a sentence, a dependency parse indicates the parent word and the part of speech. For example, the same sentence now comes out as in Table \ref{dependency_parse}.
 
-        \begin{tabular}{|ccccc|}
+\begin{table}
+\label{dependency_parse}
+\caption{Dependency parse}
+        \begin{tabular}{ccccc}
+\hline \hline
             ID & Token & Part of Speech & Parent ID & Class \\ 
             \hline
             1 &Pierre & NNP & 2 & NAME \\
@@ -173,7 +176,7 @@ This information is helpful, but could be improved. To conduct analysis on the d
             18 & . & . & 8 & P\\
             \hline
         \end{tabular} \\
-
+\end{table}
 
 This data now directly tells us the parental relationships between two words in a sentence. The Penn Treebank contains 24 sections. We used sections 02-22 for training and section 23 for testing. Section 23 contains 2,416 sentences, which includes 56,684 words (49,892 without punctuation).
 
@@ -186,29 +189,30 @@ Root Accuracy = $\frac{\text{number of correct root nodes}}{\text{total number o
 Complete Rate  = $\frac{\text{number of complete parsed sentences}}{\text{total number of sentences}}$\\
 
 \noindent \\
-Using a default context of (2,2), we evaluated two different linear SVC methods. With a One vs One Linear SVC method, we obtained the following results:\\
-        \begin{tabular}{|c|c|c|}
-            \hline Dependency Accuracy & Root Accuracy & Complete Rate \\ \hline
-            0.89135 & 0.93675 & 0.32711 \\ \hline
-        \end{tabular}\\
-
+Using a default context of (2,2), we evaluated two different linear multiclass SVCs. The results for the One vs One and a One vs Many respectively is presented in Table \ref{key_results}.
+\begin{table}
+\label{key_results}
+\caption{Results for linear multiclass SVCs using a context length of (2,2)}
+        \begin{tabular}{c|ccc}
+            \hline \hline Dependency Accuracy & Root Accuracy & Complete Rate \\ \hline
+            One vs one SVC & 0.89135 & 0.93675 & 0.32711 \\
+            One vs many SVC & 0.88680 & 0.93894 & 0.32285 \\ \hline
+        \end{tabular}
+\end{table}
 \noindent \\
-Using a One vs Many Linear SVC, we obtained the following, slightly worse results: \\
-       \begin{tabular}{|c|c|c|}
-            \hline Dependency Accuracy & Root Accuracy & Complete Rate \\ \hline
-            0.88680 & 0.93894 & 0.32285 \\ \hline
-        \end{tabular} \\
-        
-\noindent \\        
 The Sci-kit Learn offered several other SVM options, but after testing each of them with a set context length, we determined
 that none of them improved our results. We then empirically determined the optimal context length for the One vs One classifier. The Context determines how many words to the left and right of the target nodes are considered. \\
-\begin{tabular}{|l|cccc|cccc|}
-            \cline{2-9} \multicolumn{1}{c|}{} & (2,2) & (2,3) & (2,4) & (2,5) & (3,2) & (3,3) & (3,4) & (3,5) \\ \hline
+\begin{table}
+\caption{Varying the context length}
+\begin{tabular}{l|cccc|cccc}
+  \hline \hline
+&\multicolumn{8}{c}{context length} \\ \hline
+             & (2,2) & (2,3) & (2,4) & (2,5) & (3,2) & (3,3) & (3,4) & (3,5) \\ \hline 
             Dep. Acc. & 0.891 & 0.890 & 0.890 & 0.889 & 0.887 & 0.887 & 0.887 & 0.887 \\
             Root Acc. & 0.937 & 0.928 & 0.934 & 0.930 & 0.932 & 0.929 & 0.928 & 0.927 \\
             Comp. Rate & 0.327 & 0.330 & 0.325 & 0.326 & 0.312 & 0.318 & 0.316 & 0.317 \\ \hline
 \end{tabular}\\
-
+\end{table}
 \noindent \\
 We determined that the One vs One Linear SVC gave the best results when used with a context of 2 on either side of the target nodes. 
 
@@ -216,14 +220,17 @@ We determined that the One vs One Linear SVC gave the best results when used wit
 
 \noindent \\
 Yamada and Matsumoto's implementation of dependency parsing used a One vs One classifier to parse the sentences. They tested different kernel degrees, and ended up with a quadratic kernel. They determined that a context of 2 on the left and 4 on the right was best (for dependency accuracy). This is slightly different from our results, however the differences here are quite small, with ours getting 89.0% accuracy for (2,4) versus 89.1% accuracy for (2,2) and their results getting 90.3% for (2,4) and 90.0% for (2,2). Their quadratic implementation gave only slightly better results than our linear implementation, while their linear implementation did worse than ours:       \\
- \begin{tabular}{|c|c|c|c|}
-            \hline & Dependency Accuracy & Root Accuracy & Complete Rate \\ \hline
-            Y and M Quadratic & 0.900 & 0.896 & 0.379 \\ \hline
-            Y and M Linear & 0.854 & 0.811 & 0.261 \\ \hline
-            Our Linear Results & 0.89135 & 0.93675 & 0.32711 \\ \hline
+\begin{table}
+\caption{Comparison of results}
+ \begin{tabular}{cccc}
+            \hline \hline & Dependency Accuracy & Root Accuracy & Complete Rate \\ \hline
+            Y and M Quadratic & 0.900 & 0.896 & 0.379 \\ 
+            Y and M Linear & 0.854 & 0.811 & 0.261 \\ 
+            Our Linear Results & 0.89135 & 0.93675 & 0.32711 \\
+            \hline
 
-        \end{tabular}\\
-
+        \end{tabular}
+\end{table}
 Our implementation successfully modeled Yamada and Matsumoto's dependency parsing algorithm with fairly similar results on the linear kernel level. In theory, a One vs Many classifier should work better than a three-part One vs One classifier. Possible next steps to improve results include investigating other One vs Many classifiers and attempting to pinpoint why this classifier did not improve parsing accuracy. Another possible next step includes testing out various other kernel functions. \\
         
 \bibliographystyle{plain}
